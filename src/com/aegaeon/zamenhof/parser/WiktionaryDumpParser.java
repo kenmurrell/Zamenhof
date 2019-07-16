@@ -1,6 +1,5 @@
 package com.aegaeon.zamenhof.parser;
 
-import javax.xml.parsers.SAXParser;
 import java.io.File;
 import java.util.logging.Logger;
 
@@ -12,10 +11,10 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     protected String base;
 
-    protected WiktionaryPageParser wikiparser;
+    protected WiktionaryPageParser pageParser;
 
     public WiktionaryDumpParser(WiktionaryPageParser pageParser) {
-        wikiparser = pageParser;
+        this.pageParser = pageParser;
     }
 
     @Override
@@ -28,6 +27,7 @@ public class WiktionaryDumpParser extends XMLFileParser {
     protected void onElementStart(String name, DumpHandler handler) {
         if ("page".equals(name)) {
             inPage = true;
+            this.onPageStart();
         }
     }
 
@@ -37,22 +37,23 @@ public class WiktionaryDumpParser extends XMLFileParser {
             base = handler.getContents();
         } else if ("page".equals(name)) {
             inPage = false;
+            this.onPageEnd();
         }
 
         if (inPage) {
             if ("page".equals(handler.getParent())) {
                 if ("id".equals(name)) {
-                    setPageId(handler.getContents());
+                    this.setPageId(handler.getContents());
                 } else if ("title".equals(name)) {
-                    setPageTitle(handler.getContents());
+                    this.setPageTitle(handler.getContents());
                 }
             } else if ("revision".equals(handler.getParent())) {
                 if ("id".equals(name)) {
-                    setRevision(handler.getContents());
+                    this.setRevision(handler.getContents());
                 } else if ("timestamp".equals(name)) {
-                    setTimestamp(handler.getContents());
+                    this.setTimestamp(handler.getContents());
                 } else if ("text".equals(name)) {
-                    setText(handler.getContents());
+                    this.setText(handler.getContents());
                 }
             }
 
@@ -61,39 +62,49 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
 
     private void setPageId(String contents) {
-        wikiparser.setId(contents);
+        pageParser.setId(contents);
         //TODO:convert this to long
     }
 
     private void setPageTitle(String contents) {
-        wikiparser.setTitle(contents);
+        String namespace = null;
+        int idx = contents.indexOf(':');
+        if(idx>=0)
+        {
+            namespace = contents.substring(0,idx);
+        }
+
+        pageParser.setTitle(contents,namespace);
     }
 
     private void setRevision(String contents)
     {
-        wikiparser.setRevision(contents);
+        pageParser.setRevision(contents);
         //TODO:convert this to long
     }
 
     private void setTimestamp(String contents)
     {
-        wikiparser.setTimestamp(contents);
+        pageParser.setTimestamp(contents);
         //TODO:convert this to date
     }
 
     private void setText(String contents)
     {
-        wikiparser.setText(contents);
+
+        pageParser.setText(contents);
     }
 
     protected void onPageStart()
     {
-        wikiparser.onPageStart();
+
+        pageParser.onPageStart();
     }
 
     protected void onPageEnd()
     {
-        wikiparser.onPageEnd();
+        pageParser.onPageEnd();
+        //TODO:print metric of parses pages
         //gather pages to save here
     }
 

@@ -1,59 +1,69 @@
 package com.aegaeon.zamenhof.parser;
 
+import java.util.logging.Logger;
+
 public class WiktionaryPageParser {
+
+    private static Logger logger = Logger.getLogger(WiktionaryPageParser.class.getName());
+
+    private WiktionaryPage page;
+
+    private WiktionaryEntryParser entryparser;
+
+    private String currentNamespace;
 
     private static String lang;
 
-    private String timestamp;
-    //TODO:convert these
-
-    private String text;
-
-    private String title;
-
-    private String id;
-
-    private String revision;
-
-
     private WiktionaryPageParser(String lang)
     {
-        this.lang = lang;
+        WiktionaryPageParser.lang = lang;
+        entryparser = new WiktionaryEntryParser();
     }
 
     public static WiktionaryPageParser create(String lang)
     {
-        return new WiktionaryPageParser(lang);
+        //TODO:multiple dump languages?
+        return new WiktionaryPageParser("en");
     }
 
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+        this.page.setTimestamp(timestamp);
     }
 
     public void setText(String text) {
-        this.text = text;
+        //namespace!=null means an infopage
+        if(currentNamespace==null) {
+            entryparser.parse(page,text);
+        }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String title, String namespace) {
+        this.currentNamespace = namespace;
+        this.page.setTitle(title);
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.page.setId(id);
     }
 
     public void setRevision(String revision) {
-        this.revision = revision;
+        this.page.setRevision(revision);
     }
 
     protected void onPageStart()
     {
+        this.page = new WiktionaryPage();
         //create and parse entry
     }
 
     protected void onPageEnd()
     {
         //save shit
+        //entryparser return data
     }
+
+
+
+
 }
