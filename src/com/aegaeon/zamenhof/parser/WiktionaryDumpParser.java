@@ -97,6 +97,7 @@ public class WiktionaryDumpParser extends XMLFileParser {
             }
         }
         pageParser.setTitle(title,namespace);
+        //logger.log(Level.INFO,title);
     }
 
     private void setRevision(String contents)
@@ -132,7 +133,7 @@ public class WiktionaryDumpParser extends XMLFileParser {
     {
         pageParser.onPageEnd();
         this.pagectr++;
-        if(pagectr%1000==0)
+        if(pagectr%5000==0)
         {
             logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));
         }

@@ -28,25 +28,29 @@ public class WiktionaryEntryParser {
         ILanguage currentLanguage = null;
         String currentWordtype = "";
         String currentSubheader = "";
+        String currentSubheader2 = "";
         String currentSense = "";
         //TODO: this is a really shitty parser....we can do better
         while (lines.hasNext()) {
             String line = lines.next().trim();
             if (isHead(line)) {
-                if (2 == getLevel(line, 0))
-                {
+                if (2 == getLevel(line, 0)) {
                     currentLanguage = Language.getByName(line.replace("=", "").trim().toUpperCase());
-                }
-                else if (3 == getLevel(line, 0))
-                {
+                    currentWordtype = "";
+                    currentSubheader = "";
+                    currentSubheader2 = "";
+                } else if (3 == getLevel(line, 0)) {
                     currentWordtype = line.replace("=", "").trim().toUpperCase();
-                }
-                else if (4 == getLevel(line, 0))
-                {
+                    currentSubheader = "";
+                } else if (4 == getLevel(line, 0)) {
                     currentSubheader = line.replace("=", "").trim().toUpperCase();
+                    currentSubheader2 = "";
+                } else if (5 == getLevel(line, 0))
+                {
+                    currentSubheader2 = line.replaceAll("=","").trim().toUpperCase();
                 }
             }
-            else if (isTranslationSection(currentLanguage, currentSubheader))
+            else if (!line.isEmpty() && isTranslationSection(currentLanguage, currentSubheader,currentSubheader2))
             {
                 Matcher senseMatch = SENSE_PATTERN.matcher(line);
                 if (senseMatch.find())
@@ -62,7 +66,15 @@ public class WiktionaryEntryParser {
                                 String sourceWord = page.getTitle();
                                 WiktionaryTranslation translation = new WiktionaryTranslation(page, currentLanguage, sourceWord, targetLang, targetWord);
                                 translation.setSense(currentSense);
-                                translation.setWordType(currentWordtype);
+
+                                //Sometimes pages have English-Etymology-Noun-Translation
+                                //instead of English-Noun-Translation
+                                if (isEtymologyStructure(currentWordtype)) {
+                                    translation.setWordType(currentSubheader);
+                                } else {
+                                    translation.setWordType(currentWordtype);
+                                }
+
                                 this.translations.add(translation);
                             }
                         }
@@ -85,8 +97,13 @@ public class WiktionaryEntryParser {
         return line.startsWith("=") && line.endsWith("=");
     }
 
-    private boolean isTranslationSection(ILanguage language, String subheader) {
-        return Objects.equals(Language.ENGLISH, language) && subheader.equals("TRANSLATIONS");
+    private boolean isTranslationSection(ILanguage language, String subheader1, String subheader2) {
+        return Objects.equals(Language.ENGLISH, language) && (subheader1.equals("TRANSLATIONS") || subheader2.equals("TRANSLATIONS"));
+    }
+
+    private boolean isEtymologyStructure(String header)
+    {
+        return header.contains("ETYMOLOGY");
     }
 
     public List<PageObject> getPageObjects()

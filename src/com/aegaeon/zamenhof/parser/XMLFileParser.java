@@ -9,6 +9,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Stack;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.util.logging.Level.SEVERE;
@@ -79,9 +80,14 @@ public abstract class XMLFileParser {
     public void parse(final File dumpFile) {
         try {
             runThisShit(new FileInputStream(dumpFile));
-        } catch (Exception ex) //make this global, idc
+        }
+        catch (NullPointerException nullex)
         {
-            logger.log(SEVERE, ex.getLocalizedMessage());
+            logger.log(Level.INFO,"Lost tag error: "+nullex.toString());
+        }
+        catch (Exception otherex)
+        {
+            logger.log(SEVERE, "Parsing error: "+otherex.toString());
         }
     }
 

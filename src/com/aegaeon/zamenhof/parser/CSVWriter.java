@@ -8,11 +8,10 @@ import java.util.Collection;
 
 public class CSVWriter {
 
-    public static void write(Collection<PageObject> objects)
+    public static void write(Collection<PageObject> objects, File outputfile)
     {
-        File file = new File("test.csv");
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputfile));
             for(PageObject object : objects)
             {
                 if(object instanceof WiktionaryTranslation) {
