@@ -15,6 +15,7 @@ ca  Catalan
 cs  Czech
 da  Danish
 nl  Dutch
+en  English
 eo  Esparanto
 et  Estonian
 fo  Faroese
