@@ -4,11 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.Collection;
 
 public class CSVWriter {
 
-    public static void write(HashSet<PageObject> objects)
+    public static void write(Collection<PageObject> objects)
     {
         File file = new File("test.csv");
         try {

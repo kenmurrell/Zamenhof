@@ -2,7 +2,6 @@ package com.aegaeon.zamenhof.parser;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WiktionaryPageParser {
@@ -23,7 +22,7 @@ public class WiktionaryPageParser {
     {
         this.collector = collector;
         WiktionaryPageParser.lang = lang;
-        entryparser = new WiktionaryEntryParser();
+
     }
 
     public static WiktionaryPageParser create(String lang, Consumer<PageObject> collector)
@@ -60,7 +59,7 @@ public class WiktionaryPageParser {
     protected void onPageStart()
     {
         this.page = new WiktionaryPage();
-
+        entryparser = new WiktionaryEntryParser();
         //create and parse entry
     }
 
