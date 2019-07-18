@@ -1,6 +1,8 @@
 package com.aegaeon.zamenhof.parser;
 
 import com.aegaeon.zamenhof.parser.utils.ILanguage;
+import com.aegaeon.zamenhof.parser.utils.IWordType;
+import com.aegaeon.zamenhof.parser.utils.WordType;
 
 public class WiktionaryTranslation extends PageObject{
 
@@ -14,36 +16,21 @@ public class WiktionaryTranslation extends PageObject{
 
     private String sense;
 
-    private String wordType;
+    private IWordType wordType;
 
-    public WiktionaryTranslation(WiktionaryPage page,ILanguage sourceLanguage, String sourceWord, ILanguage targetLanguage, String targetWord)
+    public WiktionaryTranslation(WiktionaryPage page,ILanguage sourceLanguage, String sourceWord, ILanguage targetLanguage, String targetWord, IWordType wordType)
     {
         super(page);
         this.sourceLanguage = sourceLanguage;
         this.sourceWord = sourceWord;
         this.targetLanguage = targetLanguage;
         this.targetWord = targetWord;
+        this.wordType = wordType;
     }
 
-    public String getSourceWord() {
-        return sourceWord;
-    }
-
-    public ILanguage getSourceLanguage() {
-        return sourceLanguage;
-    }
-
-    public String getTargetWord() {
-        return targetWord;
-    }
-
-    public ILanguage getTargetLanguage() {
-        return targetLanguage;
-    }
-
-    public String getSense()
+    public static WiktionaryTranslation create(WiktionaryPage page, ILanguage srcLang, String srcWord, ILanguage tgtLang, String tgtWord, IWordType wordType)
     {
-        return this.sense;
+        return new WiktionaryTranslation(page, srcLang,srcWord,tgtLang,tgtWord, (wordType==null)? WordType.UKNOWN : wordType);
     }
 
     public void setSense(String sense)
@@ -51,29 +38,19 @@ public class WiktionaryTranslation extends PageObject{
         this.sense = sense;
     }
 
-    public String getWordType()
-    {
-        return this.wordType;
-    }
-
-    public void setWordType(String wordType)
-    {
-        this.wordType = wordType;
-    }
-    
     @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getSourceLanguage().getName()).append(",");
-        sb.append(this.getSourceWord()).append(",");
-        sb.append(this.getTargetLanguage().getName()).append(",");
-        sb.append(this.getTargetWord()).append(",");
-        sb.append(this.getWordType()).append(",");
+        sb.append(this.sourceLanguage.getName()).append(",");
+        sb.append(this.sourceWord).append(",");
+        sb.append(this.targetLanguage.getName()).append(",");
+        sb.append(this.targetWord).append(",");
+        sb.append(this.wordType.getName()).append(",");
         sb.append(this.getPageid()).append(",");
         sb.append(this.getRevision()).append(",");
         sb.append(this.getTimestamp()).append(",");
-        sb.append(this.getSense());
+        sb.append(this.sense);
         return sb.toString();
     }
 }

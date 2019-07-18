@@ -82,6 +82,7 @@ public class WiktionaryDumpParser extends XMLFileParser {
     }
 
     private void setPageTitle(String title) {
+        //TODO:we should be using the namespace key-val relations, not checking for : and trying to match the word
         String namespace = null;
         int idx = title.indexOf(':');
         if(idx>=0)
@@ -133,7 +134,7 @@ public class WiktionaryDumpParser extends XMLFileParser {
     {
         pageParser.onPageEnd();
         this.pagectr++;
-        if(pagectr%5000==0)
+        if(pagectr%10000==0)
         {
             logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));
         }

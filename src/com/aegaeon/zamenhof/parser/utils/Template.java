@@ -1,6 +1,9 @@
 package com.aegaeon.zamenhof.parser.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Template {
@@ -28,7 +31,7 @@ public class Template {
                 int p = parameter.indexOf("=");
                 String key = parameter.substring(0,p);
                 String val = parameter.substring(p+1);
-                template.addLabeledParameter(key, val);
+                template.labeledParameters.putIfAbsent(key,val);
             } else {
                 template.numberedParameters.add(parameter);
             }
@@ -75,21 +78,6 @@ public class Template {
         {
             return null;
         }
-    }
-
-    public void addNumberedParameter(String value)
-    {
-        this.numberedParameters.add(value);
-    }
-
-    public String getLabeledParameter(String label)
-    {
-        return this.labeledParameters.getOrDefault(label, null);
-    }
-
-    public void addLabeledParameter(String key, String value)
-    {
-        this.labeledParameters.putIfAbsent(key,value);
     }
 
     public int numberedParameterCount()

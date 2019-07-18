@@ -1,19 +1,14 @@
 package com.aegaeon.zamenhof.parser;
 
-import com.aegaeon.zamenhof.parser.utils.ILanguage;
-import com.aegaeon.zamenhof.parser.utils.Language;
-import com.aegaeon.zamenhof.parser.utils.Template;
+import com.aegaeon.zamenhof.parser.utils.*;
 
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WiktionaryEntryParser {
 
     private static Pattern SENSE_PATTERN = Pattern.compile("\\{\\{trans\\-top\\|(.*)\\}\\}");
-
-    private Logger logger = Logger.getLogger(WiktionaryEntryParser.class.getName());
 
     private List<PageObject> translations;
 
@@ -27,7 +22,7 @@ public class WiktionaryEntryParser {
         Iterator<String> lines = Arrays.asList(text.split("\n")).iterator();
         ILanguage currentLanguage = null;
         String currentWordtype = "";
-        String currentSubheader = "";
+        String currentSubheader1 = "";
         String currentSubheader2 = "";
         String currentSense = "";
         //TODO: this is a really shitty parser....we can do better
@@ -35,22 +30,22 @@ public class WiktionaryEntryParser {
             String line = lines.next().trim();
             if (isHead(line)) {
                 if (2 == getLevel(line, 0)) {
-                    currentLanguage = Language.getByName(line.replace("=", "").trim().toUpperCase());
+                    currentLanguage = Language.getByName(format(line));
                     currentWordtype = "";
-                    currentSubheader = "";
+                    currentSubheader1 = "";
                     currentSubheader2 = "";
                 } else if (3 == getLevel(line, 0)) {
-                    currentWordtype = line.replace("=", "").trim().toUpperCase();
-                    currentSubheader = "";
+                    currentWordtype = format(line);
+                    currentSubheader1 = "";
                 } else if (4 == getLevel(line, 0)) {
-                    currentSubheader = line.replace("=", "").trim().toUpperCase();
+                    currentSubheader1 = format(line);
                     currentSubheader2 = "";
                 } else if (5 == getLevel(line, 0))
                 {
-                    currentSubheader2 = line.replaceAll("=","").trim().toUpperCase();
+                    currentSubheader2 = format(line);
                 }
             }
-            else if (!line.isEmpty() && isTranslationSection(currentLanguage, currentSubheader,currentSubheader2))
+            else if (!line.isEmpty() && isTranslationSection(currentLanguage, currentSubheader1,currentSubheader2))
             {
                 Matcher senseMatch = SENSE_PATTERN.matcher(line);
                 if (senseMatch.find())
@@ -59,22 +54,14 @@ public class WiktionaryEntryParser {
                 } else {
                     List<Template> templates = Template.createAll(line);
                     for (Template template : templates) {
-                        if (verifyTranslation(template)) {
+                        if (isTranslation(template)) {
                             ILanguage targetLang = Language.getByCode(template.getNumberedParameter(1));
                             if(targetLang!=null) {
                                 String targetWord = template.getNumberedParameter(2);
                                 String sourceWord = page.getTitle();
-                                WiktionaryTranslation translation = new WiktionaryTranslation(page, currentLanguage, sourceWord, targetLang, targetWord);
+                                IWordType wordType = Optional.ofNullable(WordType.getByName(currentWordtype)).orElse(WordType.getByName(currentSubheader1));
+                                WiktionaryTranslation translation = WiktionaryTranslation.create(page, currentLanguage, sourceWord, targetLang, targetWord,wordType);
                                 translation.setSense(currentSense);
-
-                                //Sometimes pages have English-Etymology-Noun-Translation
-                                //instead of English-Noun-Translation
-                                if (isEtymologyStructure(currentWordtype)) {
-                                    translation.setWordType(currentSubheader);
-                                } else {
-                                    translation.setWordType(currentWordtype);
-                                }
-
                                 this.translations.add(translation);
                             }
                         }
@@ -84,10 +71,14 @@ public class WiktionaryEntryParser {
         }
     }
 
-    private boolean verifyTranslation(Template template) {
-        return Arrays.asList("t", "t+").contains(template.getNumberedParameter(0)) && template.numberedParameterCount() >= 3;
+    private String format(String header)
+    {
+    	return header.replace("=","").trim().toUpperCase();
     }
 
+    private boolean isTranslation(Template template) {
+        return Arrays.asList("t", "t+").contains(template.getNumberedParameter(0)) && template.numberedParameterCount() >= 3;
+    }
 
     private int getLevel(String line, int level) {
         return line.startsWith("=") ? getLevel(line.substring(1), level + 1) : level;
