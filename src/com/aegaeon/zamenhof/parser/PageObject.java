@@ -8,7 +8,7 @@ public abstract class PageObject {
 
     private String revision;
 
-    protected PageObject(WiktionaryPage page)
+    public PageObject(WiktionaryPage page)
     {
         this.timestamp = page.getTimestamp();
         this.revision = page.getRevision();
@@ -19,23 +19,15 @@ public abstract class PageObject {
         return revision;
     }
 
-    public void setRevision(String revision) {
-        this.revision = revision;
-    }
-
     public String getPageid() {
         return pageid;
-    }
-
-    public void setPageid(String pageid) {
-        this.pageid = pageid;
     }
 
     public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
+    @Override
+    public abstract String toString();
+
 }

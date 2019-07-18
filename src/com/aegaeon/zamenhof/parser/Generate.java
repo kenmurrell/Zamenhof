@@ -14,6 +14,7 @@ public class Generate {
         PageObjectCollector collector = new PageObjectCollector();
         WiktionaryDumpParser dumpParser = new WiktionaryDumpParser(WiktionaryPageParser.create(lang,collector));
         dumpParser.parse(new File(dumpFile));
-        logger.log(Level.SEVERE, String.valueOf(collector.getCollection().size()));
+        logger.log(Level.SEVERE, "Number of translations: "+String.valueOf(collector.getCollection().size()));
+        CSVWriter.write(collector.getCollection());
     }
 }

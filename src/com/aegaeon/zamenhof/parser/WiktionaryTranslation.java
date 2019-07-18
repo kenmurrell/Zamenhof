@@ -1,10 +1,6 @@
 package com.aegaeon.zamenhof.parser;
 
 import com.aegaeon.zamenhof.parser.utils.ILanguage;
-import com.aegaeon.zamenhof.parser.utils.Language;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WiktionaryTranslation extends PageObject{
 
@@ -63,6 +59,22 @@ public class WiktionaryTranslation extends PageObject{
     public void setWordType(String wordType)
     {
         this.wordType = wordType;
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getSourceLanguage().getName()).append(",");
+        sb.append(this.getSourceWord()).append(",");
+        sb.append(this.getTargetLanguage().getName()).append(",");
+        sb.append(this.getTargetWord()).append(",");
+        sb.append(this.getWordType()).append(",");
+        sb.append(this.getPageid()).append(",");
+        sb.append(this.getRevision()).append(",");
+        sb.append(this.getTimestamp()).append(",");
+        sb.append(this.getSense());
+        return sb.toString();
     }
 }
 

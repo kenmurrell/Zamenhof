@@ -1,6 +1,8 @@
 package com.aegaeon.zamenhof.parser;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,13 +12,16 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     protected boolean inPage;
 
-    protected String base;
+    protected String baseUrl;
 
     protected WiktionaryPageParser pageParser;
 
     private int pagectr;
 
+    private Set<String> namespaces;
+
     public WiktionaryDumpParser(WiktionaryPageParser pageParser) {
+        namespaces = new HashSet<>();
         this.pageParser = pageParser;
         pagectr=0;
     }
@@ -37,8 +42,10 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     @Override
     protected void onElementEnd(String name, DumpHandler handler) {
-        if ("base".equals(name)) {
-            base = handler.getContents();
+        if ("baseUrl".equals(name)) {
+            this.setBaseUrl(handler.getContents());
+        } else if ("namespace".equals(name)&&handler.hasContent()){
+            this.addNamespace(handler.getContents());
         } else if ("page".equals(name)) {
             inPage = false;
             this.onPageEnd();
@@ -64,21 +71,32 @@ public class WiktionaryDumpParser extends XMLFileParser {
         }
     }
 
+    private void setBaseUrl(String baseUrl)
+    {
+        this.baseUrl = baseUrl;
+    }
 
     private void setPageId(String contents) {
         pageParser.setId(contents);
         //TODO:convert this to long
     }
 
-    private void setPageTitle(String contents) {
+    private void setPageTitle(String title) {
         String namespace = null;
-        int idx = contents.indexOf(':');
+        int idx = title.indexOf(':');
         if(idx>=0)
         {
-            namespace = contents.substring(0,idx);
+            namespace = title.substring(0,idx);
+            if(!namespaces.contains(namespace))
+            {
+                namespace = null;
+            }
+            else
+            {
+                title.substring(idx+1);
+            }
         }
-
-        pageParser.setTitle(contents,namespace);
+        pageParser.setTitle(title,namespace);
     }
 
     private void setRevision(String contents)
@@ -97,6 +115,11 @@ public class WiktionaryDumpParser extends XMLFileParser {
     {
 
         pageParser.setText(contents);
+    }
+
+    protected void addNamespace(final String namespace)
+    {
+        namespaces.add(namespace);
     }
 
     protected void onPageStart()
