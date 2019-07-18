@@ -16,7 +16,8 @@ public class CSVWriter {
             for(PageObject object : objects)
             {
                 if(object instanceof WiktionaryTranslation) {
-
+                    writer.write(object.toString());
+                    writer.newLine();
                 }
             }
             writer.flush();

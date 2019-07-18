@@ -4,12 +4,10 @@ import com.aegaeon.zamenhof.parser.utils.ILanguage;
 import com.aegaeon.zamenhof.parser.utils.Language;
 import com.aegaeon.zamenhof.parser.utils.Template;
 
-import javax.xml.transform.Templates;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class WiktionaryEntryParser {
 
@@ -27,7 +25,7 @@ public class WiktionaryEntryParser {
 
     public void parse(final WiktionaryPage page, String text) {
         Iterator<String> lines = Arrays.asList(text.split("\n")).iterator();
-        String currentLanguage = "";
+        ILanguage currentLanguage = null;
         String currentWordtype = "";
         String currentSubheader = "";
         String currentSense = "";
@@ -35,33 +33,41 @@ public class WiktionaryEntryParser {
         while (lines.hasNext()) {
             String line = lines.next().trim();
             if (isHead(line)) {
-                if (2 == getLevel(line, 0)) {
-                    currentLanguage = line.replace("=", "").trim().toUpperCase();
-                } else if (3 == getLevel(line, 0)) {
+                if (2 == getLevel(line, 0))
+                {
+                    currentLanguage = Language.getByName(line.replace("=", "").trim().toUpperCase());
+                }
+                else if (3 == getLevel(line, 0))
+                {
                     currentWordtype = line.replace("=", "").trim().toUpperCase();
-                } else if (4 == getLevel(line, 0)) {
+                }
+                else if (4 == getLevel(line, 0))
+                {
                     currentSubheader = line.replace("=", "").trim().toUpperCase();
                 }
-            } else if (isTranslationSection(currentLanguage, currentSubheader)) {
+            }
+            else if (isTranslationSection(currentLanguage, currentSubheader))
+            {
                 Matcher senseMatch = SENSE_PATTERN.matcher(line);
-                if (senseMatch.find()) {
+                if (senseMatch.find())
+                {
                     currentSense = senseMatch.group(1);
                 } else {
                     List<Template> templates = Template.createAll(line);
                     for (Template template : templates) {
                         if (verifyTranslation(template)) {
                             ILanguage targetLang = Language.getByCode(template.getNumberedParameter(1));
-                            String targetWord = template.getNumberedParameter(2);
-                            String sourceWord = page.getTitle();
-                            WiktionaryTranslation translation = new WiktionaryTranslation(page,Language.ENGLISH, sourceWord, targetLang, targetWord);
-                            translation.setSense(currentSense);
-                            translation.setWordType(currentWordtype);
-                            this.translations.add(translation);
+                            if(targetLang!=null) {
+                                String targetWord = template.getNumberedParameter(2);
+                                String sourceWord = page.getTitle();
+                                WiktionaryTranslation translation = new WiktionaryTranslation(page, currentLanguage, sourceWord, targetLang, targetWord);
+                                translation.setSense(currentSense);
+                                translation.setWordType(currentWordtype);
+                                this.translations.add(translation);
+                            }
                         }
                     }
                 }
-
-
             }
         }
     }
@@ -79,8 +85,8 @@ public class WiktionaryEntryParser {
         return line.startsWith("=") && line.endsWith("=");
     }
 
-    private boolean isTranslationSection(String language, String subheader) {
-        return language.equals("ENGLISH") && subheader.equals("TRANSLATIONS");
+    private boolean isTranslationSection(ILanguage language, String subheader) {
+        return Objects.equals(Language.ENGLISH, language) && subheader.equals("TRANSLATIONS");
     }
 
     public List<PageObject> getPageObjects()

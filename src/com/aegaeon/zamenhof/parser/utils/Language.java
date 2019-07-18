@@ -14,7 +14,11 @@ public class Language implements ILanguage{
 
     private static final Logger logger = Logger.getLogger(Language.class.getName());
 
-    private static Map<String,ILanguage> languageIndex;
+    private static Map<String,ILanguage> codelanguageIndex;
+
+    private static Map<String,ILanguage> nameLanguageIndex;
+
+    private static boolean initialized;
 
     protected String code;
 
@@ -24,21 +28,29 @@ public class Language implements ILanguage{
 
     private static ILanguage get(final String code) {
         initialize();
-        return code == null ? null : languageIndex.get(code);
+        return code == null ? null : codelanguageIndex.get(code);
     }
 
     public static ILanguage getByCode(String code)
     {
-        return get(code);
+        initialize();
+        return code == null ? null : codelanguageIndex.get(code);
     }
 
-    public static void main(String[] args)
+    public static ILanguage getByName(String name)
     {
         initialize();
+        return name ==null ? null : nameLanguageIndex.get(name);
     }
 
     public static void initialize()
     {
+        if(initialized)
+        {
+            return;
+        }
+        codelanguageIndex = new TreeMap<>();
+        nameLanguageIndex = new TreeMap<>();
         try{
             InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("/com/aegaeon/zamenhof/resources/language_codes.txt"),StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(inreader);
@@ -49,19 +61,19 @@ public class Language implements ILanguage{
                 String code = fields[0];
                 String name = fields[1];
                 ILanguage language = new Language(code, name);
-                languageIndex.put(code,language);
+                codelanguageIndex.put(code,language);
+                nameLanguageIndex.put(name.toUpperCase(),language);
             }
+            initialized = true;
         }
         catch (IOException ex)
         {
             logger.log(Level.SEVERE, "babel shit is happening");
         }
-
     }
 
     protected Language(String code, String name)
     {
-        languageIndex = new TreeMap<>();
         this.code = code;
         this.name = name;
     }
