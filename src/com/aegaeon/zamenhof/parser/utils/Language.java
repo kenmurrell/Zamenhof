@@ -20,24 +20,32 @@ public class Language implements ILanguage{
 
     protected String name;
 
-    public static final ILanguage ENGLISH = get("eng");
-
-    public static final ILanguage FRENCH = get("fre");
+    public static final ILanguage ENGLISH = get("en");
 
     private static ILanguage get(final String code) {
         initialize();
         return code == null ? null : languageIndex.get(code);
     }
 
+    public static ILanguage getByCode(String code)
+    {
+        return get(code);
+    }
+
+    public static void main(String[] args)
+    {
+        initialize();
+    }
+
     public static void initialize()
     {
         try{
-            InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("language_codes.txt"),StandardCharsets.UTF_8);
+            InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("/com/aegaeon/zamenhof/resources/language_codes.txt"),StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(inreader);
             String line;
             while((line = reader.readLine()) !=null)
             {
-                String[] fields = line.split("\t");
+                String[] fields = line.split("\\s\\s");
                 String code = fields[0];
                 String name = fields[1];
                 ILanguage language = new Language(code, name);

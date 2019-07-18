@@ -1,6 +1,7 @@
 package com.aegaeon.zamenhof.parser;
 
 import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WiktionaryDumpParser extends XMLFileParser {
@@ -13,8 +14,11 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     protected WiktionaryPageParser pageParser;
 
+    private int pagectr;
+
     public WiktionaryDumpParser(WiktionaryPageParser pageParser) {
         this.pageParser = pageParser;
+        pagectr=0;
     }
 
     @Override
@@ -104,7 +108,11 @@ public class WiktionaryDumpParser extends XMLFileParser {
     protected void onPageEnd()
     {
         pageParser.onPageEnd();
-        //TODO:print metric of parses pages
+        this.pagectr++;
+        if(pagectr%1000==0)
+        {
+            logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));
+        }
         //gather pages to save here
     }
 

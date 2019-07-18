@@ -76,12 +76,12 @@ public abstract class XMLFileParser {
     protected void onParserEnd() {
     }
 
-    public void parse(final File dumpeFile) {
+    public void parse(final File dumpFile) {
         try {
-            runThisShit(new FileInputStream(dumpeFile));
+            runThisShit(new FileInputStream(dumpFile));
         } catch (Exception ex) //make this global, idc
         {
-            logger.log(SEVERE, ex.toString());
+            logger.log(SEVERE, ex.getLocalizedMessage());
         }
     }
 

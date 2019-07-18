@@ -1,23 +1,18 @@
 package com.aegaeon.zamenhof.parser;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WiktionaryPage {
 
     private String title;
 
     //private Language language;
 
-    private List<WiktionaryTranslation> translations;
     private String id;
     private String revision;
     private String timestamp;
 
     public WiktionaryPage()
     {
-        translations = new ArrayList<>();
     }
 
     public void setTitle(String title)
@@ -30,11 +25,6 @@ public class WiktionaryPage {
         return this.title;
     }
 
-    public void addTranslation(WiktionaryTranslation translation)
-    {
-        translations.add(translation);
-    }
-
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
@@ -45,5 +35,20 @@ public class WiktionaryPage {
 
     public void setRevision(String revision) {
         this.revision = revision;
+    }
+
+    public String getTimestamp()
+    {
+        return this.timestamp;
+    }
+
+    public String getRevision()
+    {
+        return this.revision;
+    }
+
+    public String getId()
+    {
+        return this.id;
     }
 }

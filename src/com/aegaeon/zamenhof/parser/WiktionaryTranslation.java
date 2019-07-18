@@ -1,66 +1,68 @@
 package com.aegaeon.zamenhof.parser;
 
+import com.aegaeon.zamenhof.parser.utils.ILanguage;
 import com.aegaeon.zamenhof.parser.utils.Language;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiktionaryTranslation implements PageObject{
+public class WiktionaryTranslation extends PageObject{
 
     private String sourceWord;
 
-    private Language sourceLanguage;
+    private ILanguage sourceLanguage;
 
-    private List<String> targetWords;
+    private String targetWord;
 
-    private Language targetLanguage;
+    private ILanguage targetLanguage;
 
-    private WiktionaryPage page;
+    private String sense;
 
-    public WiktionaryTranslation()
+    private String wordType;
+
+    public WiktionaryTranslation(WiktionaryPage page,ILanguage sourceLanguage, String sourceWord, ILanguage targetLanguage, String targetWord)
     {
-        targetWords = new ArrayList<>();
+        super(page);
+        this.sourceLanguage = sourceLanguage;
+        this.sourceWord = sourceWord;
+        this.targetLanguage = targetLanguage;
+        this.targetWord = targetWord;
     }
 
     public String getSourceWord() {
         return sourceWord;
     }
 
-    public void setSourceWord(String sourceWord) {
-        this.sourceWord = sourceWord;
-    }
-
-    public Language getSourceLanguage() {
+    public ILanguage getSourceLanguage() {
         return sourceLanguage;
     }
 
-    public void setSourceLanguage(Language sourceLanguage) {
-        this.sourceLanguage = sourceLanguage;
+    public String getTargetWord() {
+        return targetWord;
     }
 
-    public List<String> getTargetWord() {
-        return targetWords;
-    }
-
-    public void addTargetWord(List<String> targetWords) {
-        this.targetWords.addAll(targetWords);
-    }
-
-    public void addTargetWord(String targetWord) {
-        this.targetWords.add(targetWord);
-    }
-
-    public Language getTargetLanguage() {
+    public ILanguage getTargetLanguage() {
         return targetLanguage;
     }
 
-    public void setTargetLanguage(Language targetLanguage) {
-        this.targetLanguage = targetLanguage;
+    public String getSense()
+    {
+        return this.sense;
     }
 
-    public WiktionaryPage getPage()
+    public void setSense(String sense)
     {
-        return this.page;
+        this.sense = sense;
+    }
+
+    public String getWordType()
+    {
+        return this.wordType;
+    }
+
+    public void setWordType(String wordType)
+    {
+        this.wordType = wordType;
     }
 }
 

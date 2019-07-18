@@ -1,5 +1,8 @@
 package com.aegaeon.zamenhof.parser;
 
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WiktionaryPageParser {
@@ -12,18 +15,21 @@ public class WiktionaryPageParser {
 
     private String currentNamespace;
 
+    private Consumer<PageObject> collector;
+
     private static String lang;
 
-    private WiktionaryPageParser(String lang)
+    private WiktionaryPageParser(String lang, Consumer<PageObject> collector)
     {
+        this.collector = collector;
         WiktionaryPageParser.lang = lang;
         entryparser = new WiktionaryEntryParser();
     }
 
-    public static WiktionaryPageParser create(String lang)
+    public static WiktionaryPageParser create(String lang, Consumer<PageObject> collector)
     {
         //TODO:multiple dump languages?
-        return new WiktionaryPageParser("en");
+        return new WiktionaryPageParser("en",collector);
     }
 
 
@@ -54,16 +60,19 @@ public class WiktionaryPageParser {
     protected void onPageStart()
     {
         this.page = new WiktionaryPage();
+
         //create and parse entry
     }
 
     protected void onPageEnd()
     {
-        //save shit
-        //entryparser return data
+        savePageTranslations(entryparser.getPageObjects());
     }
 
-
+    private void savePageTranslations(List<PageObject> pageObjects)
+    {
+        pageObjects.forEach(t->collector.accept(t));
+    }
 
 
 }
