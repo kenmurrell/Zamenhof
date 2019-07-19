@@ -8,48 +8,44 @@ import java.util.regex.Pattern;
 
 public class WiktionaryEntryParser {
 
-    private static Pattern SENSE_PATTERN = Pattern.compile("\\{\\{trans\\-top\\|(.*)\\}\\}");
+    private static final Pattern SENSE_PATTERN = Pattern.compile("\\{\\{trans\\-top\\|(.*)\\}\\}");
 
     private List<PageObject> translations;
-
 
     public WiktionaryEntryParser() {
         translations = new ArrayList<>();
     }
 
-
     public void parse(final WiktionaryPage page, String text) {
-        Iterator<String> lines = Arrays.asList(text.split("\n")).iterator();
+        Iterator<String> iter = Arrays.asList(text.split("\n")).iterator();
         ILanguage currentLanguage = null;
         String currentWordtype = "";
         String currentSubheader1 = "";
         String currentSubheader2 = "";
         String currentSense = "";
         //TODO: this is a really shitty parser....we can do better
-        while (lines.hasNext()) {
-            String line = lines.next().trim();
+        while (iter.hasNext()) {
+            String line = iter.next().trim();
             if (isHead(line)) {
                 if (2 == getLevel(line, 0)) {
-                    currentLanguage = Language.getByName(format(line));
+                    currentLanguage = Language.getByName(StringTools.remove(line,'=').trim().toUpperCase());
                     currentWordtype = "";
                     currentSubheader1 = "";
                     currentSubheader2 = "";
                 } else if (3 == getLevel(line, 0)) {
-                    currentWordtype = format(line);
+                    currentWordtype = StringTools.remove(line,'=').trim().toUpperCase();
                     currentSubheader1 = "";
                 } else if (4 == getLevel(line, 0)) {
-                    currentSubheader1 = format(line);
+                    currentSubheader1 = StringTools.remove(line,'=').trim().toUpperCase();
                     currentSubheader2 = "";
-                } else if (5 == getLevel(line, 0))
-                {
-                    currentSubheader2 = format(line);
+                } else if (5 == getLevel(line, 0)) {
+                    currentSubheader2 = StringTools.remove(line,'=').trim().toUpperCase();
                 }
             }
             else if (!line.isEmpty() && isTranslationSection(currentLanguage, currentSubheader1,currentSubheader2))
             {
                 Matcher senseMatch = SENSE_PATTERN.matcher(line);
-                if (senseMatch.find())
-                {
+                if (senseMatch.find()) {
                     currentSense = senseMatch.group(1);
                 } else {
                     List<Template> templates = Template.createAll(line);
@@ -71,11 +67,6 @@ public class WiktionaryEntryParser {
         }
     }
 
-    private String format(String header)
-    {
-    	return header.replace("=","").trim().toUpperCase();
-    }
-
     private boolean isTranslation(Template template) {
         return Arrays.asList("t", "t+").contains(template.getNumberedParameter(0)) && template.numberedParameterCount() >= 3;
     }
@@ -90,11 +81,6 @@ public class WiktionaryEntryParser {
 
     private boolean isTranslationSection(ILanguage language, String subheader1, String subheader2) {
         return Objects.equals(Language.ENGLISH, language) && (subheader1.equals("TRANSLATIONS") || subheader2.equals("TRANSLATIONS"));
-    }
-
-    private boolean isEtymologyStructure(String header)
-    {
-        return header.contains("ETYMOLOGY");
     }
 
     public List<PageObject> getPageObjects()

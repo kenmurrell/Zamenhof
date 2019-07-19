@@ -53,6 +53,7 @@ public class Template {
         int startidx = text.indexOf("{{");
         if(startidx>=0)
         {
+            //TODO:replace the replace() method with a more robust system
             String subtext = text.substring(startidx+2);
             aggregateTemplates(subtext,headers);
             for(String header : headers)
