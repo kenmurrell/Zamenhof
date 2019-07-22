@@ -54,7 +54,8 @@ public class WiktionaryEntryParser {
                             ILanguage targetLang = Language.getByCode(template.getNumberedParameter(1));
                             if(targetLang!=null) {
                                 String targetWord = template.getNumberedParameter(2);
-                                String sourceWord = page.getTitle();
+	                              //pages marked as "<word>/translations" are only placeholders for the translations of a main page
+                                String sourceWord = page.getTitle().replaceAll("\\/translations","");
                                 IWordType wordType = Optional.ofNullable(WordType.getByName(currentWordtype)).orElse(WordType.getByName(currentSubheader1));
                                 WiktionaryTranslation translation = WiktionaryTranslation.create(page, currentLanguage, sourceWord, targetLang, targetWord,wordType);
                                 translation.setSense(currentSense);
