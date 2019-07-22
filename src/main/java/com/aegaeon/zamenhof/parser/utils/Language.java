@@ -52,7 +52,7 @@ public class Language implements ILanguage{
         codelanguageIndex = new TreeMap<>();
         nameLanguageIndex = new TreeMap<>();
         try{
-            InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("/com/aegaeon/zamenhof/resources/language_codes.txt"),StandardCharsets.UTF_8);
+            InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("/language_codes.txt"),StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(inreader);
             String line;
             while((line = reader.readLine()) !=null)
