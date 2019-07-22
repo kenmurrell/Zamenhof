@@ -78,7 +78,6 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     private void setPageId(String contents) {
         pageParser.setId(contents);
-        //TODO:convert this to long
     }
 
     private void setPageTitle(String title) {
@@ -104,13 +103,11 @@ public class WiktionaryDumpParser extends XMLFileParser {
     private void setRevision(String contents)
     {
         pageParser.setRevision(contents);
-        //TODO:convert this to long
     }
 
     private void setTimestamp(String contents)
     {
         pageParser.setTimestamp(contents);
-        //TODO:convert this to date
     }
 
     private void setText(String contents)
@@ -134,7 +131,7 @@ public class WiktionaryDumpParser extends XMLFileParser {
     {
         pageParser.onPageEnd();
         this.pagectr++;
-        if(pagectr%10000==0)
+        if(pagectr%50000==0)
         {
             logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));
         }

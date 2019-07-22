@@ -1,30 +1,30 @@
 package com.aegaeon.zamenhof.parser;
 
+import java.time.LocalDateTime;
+
 public abstract class PageObject {
 
-    private String timestamp;
+    private WiktionaryPage page;
 
-    private String pageid;
-
-    private String revision;
-
-    public PageObject(WiktionaryPage page)
+    protected PageObject(WiktionaryPage page)
     {
-        this.timestamp = page.getTimestamp();
-        this.revision = page.getRevision();
-        this.pageid = page.getId();
+        this.page = page;
     }
 
-    public String getRevision() {
-        return revision;
+    protected int getRevision() {
+        return page.getRevision();
     }
 
-    public String getPageid() {
-        return pageid;
+    protected int getPageid() {
+        return page.getId();
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    protected LocalDateTime getTimestamp() {
+        return page.getTimestamp();
+    }
+
+    protected String getStringTimestamp() {
+        return page.getStringTimestamp();
     }
 
     @Override

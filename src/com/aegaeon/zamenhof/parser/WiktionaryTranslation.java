@@ -49,7 +49,7 @@ public class WiktionaryTranslation extends PageObject{
         sb.append(this.wordType.getName()).append(",");
         sb.append(this.getPageid()).append(",");
         sb.append(this.getRevision()).append(",");
-        sb.append(this.getTimestamp()).append(",");
+        sb.append(this.getStringTimestamp()).append(",");
         sb.append(this.sense);
         return sb.toString();
     }

@@ -1,21 +1,20 @@
 package com.aegaeon.zamenhof.parser;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class WiktionaryPage {
 
+    private static DateTimeFormatter informat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CANADA);
+    private static DateTimeFormatter outformat = DateTimeFormatter.ofPattern("'D'yyyy-MM-dd'T'HH:mm");
     private String title;
+    private int id;
+    private int revision;
+    private LocalDateTime timestamp;
 
-    //private Language language;
-
-    private String id;
-    private String revision;
-    private String timestamp;
-
-    public WiktionaryPage()
-    {
-    }
-
-    public void setTitle(String title)
+    protected void setTitle(String title)
     {
         this.title = title;
     }
@@ -26,28 +25,34 @@ public class WiktionaryPage {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+
+        this.timestamp = LocalDateTime.parse(timestamp, informat);
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = Integer.parseInt(id);
     }
 
     public void setRevision(String revision) {
-        this.revision = revision;
+        this.revision = Integer.parseInt(revision);
     }
 
-    public String getTimestamp()
+    public LocalDateTime getTimestamp()
     {
         return this.timestamp;
     }
 
-    public String getRevision()
+    public String getStringTimestamp()
+    {
+        return this.timestamp.format(outformat);
+    }
+
+    public int getRevision()
     {
         return this.revision;
     }
 
-    public String getId()
+    public int getId()
     {
         return this.id;
     }
