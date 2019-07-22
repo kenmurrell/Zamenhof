@@ -2,7 +2,7 @@ package com.aegaeon.zamenhof.parser;
 
 import java.time.LocalDateTime;
 
-public abstract class PageObject {
+public abstract class PageObject{
 
     private WiktionaryPage page;
 

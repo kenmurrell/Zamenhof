@@ -33,6 +33,21 @@ public class WiktionaryTranslation extends PageObject{
         return new WiktionaryTranslation(page, srcLang,srcWord,tgtLang,tgtWord, (wordType==null)? WordType.UNKNOWN : wordType);
     }
 
+    public String getSourceWord()
+    {
+    	return sourceWord;
+    }
+
+    public String getTargetWord()
+    {
+    	return targetWord;
+    }
+
+    public ILanguage getTargetLanguage()
+    {
+    	return targetLanguage;
+    }
+
     public void setSense(String sense)
     {
         this.sense = sense;

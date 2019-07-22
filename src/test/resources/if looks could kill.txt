@@ -1,0 +1,37 @@
+==English==
+
+===Etymology===
+In chapter XVI of Bram Stoker's Dracula in a diary entry of Dr. Seward, he notes about the undead Lucy Westenra that "If ever a face meant death--if looks could kill--we saw it at that moment."
+
+An ellipsis ([[anapodoton]]) for an expression such as "If looks could kill, her look would have led to a murder of the person she was looking at."
+
+A possible origin of the phrase comes from the legend of [[Medusa]], who had the power to turn anyone who looked at her into stone.
+
+===Pronunciation===
+* {{audio|en-au-if looks could kill.ogg|Audio (AU)|lang=en}}
+
+===Phrase===
+{{head|en|phrase}}
+
+# {{lb|en|idiomatic}} {{non-gloss definition|Used to characterize a look of strong hostility}}
+
+====Translations====
+{{trans-top|used to characterize a look of strong hostility}}
+* Chinese:
+*: Mandarin: {{t|cmn|如果眼神可以杀人|sc=Hani}}
+* Czech: {{t|cs|kdyby pohled mohl zabíjet}}
+* Dutch: {{t|nl|als blikken konden doden}}
+* Finnish: {{t|fi|[[jos]] [[katse]] [[voisi]] [[tappaa]]}}
+{{trans-mid}}
+* French: {{t|fr|si on pouvait tuer d'un simple regard}}
+* German: {{t|de|wenn Blicke töten könnten}}
+* Japanese: {{t|ja|見た目で人が殺せるのなら|tr=mita me de hito ga koroseru no nara|sc=Jpan}}
+* Russian: {{t|ru|е́сли бы взгля́дом мо́жно бы́ло уби́ть}}
+* Spanish: {{t|es|si la mirada matara}}
+{{trans-bottom}}
+
+====See also====
+* [[Appendix:English examples of anapodoton]]
+
+[[Category:English ellipses]]
+[[Category:English subordinate clauses]]

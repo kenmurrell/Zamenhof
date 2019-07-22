@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class LanguageTest
 {
 	@Test
-	public void testLanguageFrench()
+	public void expectLanguageFrench()
 	{
 		ILanguage lang = Language.getByCode("fr");
 		assertNotNull(lang);
@@ -16,7 +16,7 @@ public class LanguageTest
 	}
 
 	@Test
-	public void testLanguageLuxemburgish()
+	public void expectLanguageLuxemburgish()
 	{
 		ILanguage lang = Language.getByCode("lb");
 		assertNotNull(lang);
@@ -25,7 +25,7 @@ public class LanguageTest
 	}
 
 	@Test
-	public void testLanguageArabic()
+	public void expectLanguageArabic()
 	{
 		ILanguage lang = Language.getByName("Arabic".toUpperCase());
 		assertNotNull(lang);
