@@ -17,7 +17,7 @@ public class WordType implements IWordType
 
 	private static boolean initialized;
 
-	public static IWordType UKNOWN = get("UNKNOWN");
+	public static IWordType UNKNOWN = get("UNKNOWN");
 
 	private String name;
 

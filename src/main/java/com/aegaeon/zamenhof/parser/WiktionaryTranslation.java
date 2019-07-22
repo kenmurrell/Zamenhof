@@ -30,7 +30,7 @@ public class WiktionaryTranslation extends PageObject{
 
     public static WiktionaryTranslation create(WiktionaryPage page, ILanguage srcLang, String srcWord, ILanguage tgtLang, String tgtWord, IWordType wordType)
     {
-        return new WiktionaryTranslation(page, srcLang,srcWord,tgtLang,tgtWord, (wordType==null)? WordType.UKNOWN : wordType);
+        return new WiktionaryTranslation(page, srcLang,srcWord,tgtLang,tgtWord, (wordType==null)? WordType.UNKNOWN : wordType);
     }
 
     public void setSense(String sense)
