@@ -8,6 +8,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +24,13 @@ public abstract class XMLFileParser {
     protected class DumpHandler extends DefaultHandler {
         protected StringBuffer buffer;
         protected Stack<String> tags;
+        protected Map<String,String> attr;
 
         @Override
         public void startDocument() {
             tags = new Stack<>();
             buffer = new StringBuffer();
+            attr = new HashMap<>();
             onParserStart();
         }
 
@@ -39,6 +43,10 @@ public abstract class XMLFileParser {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) {
             tags.push(qName);
+            if(attributes.getLength()==2) {
+                attr.put(attributes.getQName(0), attributes.getValue(0));
+                attr.put(attributes.getQName(1), attributes.getValue(1));
+            }
             buffer.setLength(0);
             onElementStart(qName, this);
         }
@@ -58,8 +66,18 @@ public abstract class XMLFileParser {
             return buffer.toString();
         }
 
+        public Map<String,String> getAttributes()
+        {
+            return attr;
+        }
+
         public boolean hasContent() {
             return buffer.length() > 0;
+        }
+
+        public boolean hasAttributes()
+        {
+            return !attr.isEmpty();
         }
 
         public String getParent() {

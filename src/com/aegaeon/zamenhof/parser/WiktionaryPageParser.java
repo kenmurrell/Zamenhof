@@ -30,15 +30,20 @@ public class WiktionaryPageParser {
     }
 
     public void setText(String text) {
-        //namespace!=null means an infopage
+        //namespace!=null means an word entry
+        //all non-word entry spaces have a namespace, word entry pages have a namespace "0" or null
         if(currentNamespace==null) {
             this.entryparser.parse(page,text);
         }
     }
 
-    public void setTitle(String title, String namespace) {
-        this.currentNamespace = namespace;
+    public void setTitle(String title) {
         this.page.setTitle(title);
+    }
+
+    public void setNamespace(String namespace)
+    {
+        this.currentNamespace = namespace;
     }
 
     public void setId(String id) {

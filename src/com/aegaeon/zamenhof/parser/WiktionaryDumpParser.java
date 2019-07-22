@@ -1,8 +1,8 @@
 package com.aegaeon.zamenhof.parser;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,10 +18,10 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     private int pagectr;
 
-    private Set<String> namespaces;
+    private Map<String,String> namespaces;
 
     public WiktionaryDumpParser(WiktionaryPageParser pageParser) {
-        namespaces = new HashSet<>();
+        namespaces = new HashMap<>();
         this.pageParser = pageParser;
         pagectr=0;
     }
@@ -44,8 +44,8 @@ public class WiktionaryDumpParser extends XMLFileParser {
     protected void onElementEnd(String name, DumpHandler handler) {
         if ("baseUrl".equals(name)) {
             this.setBaseUrl(handler.getContents());
-        } else if ("namespace".equals(name)&&handler.hasContent()){
-            this.addNamespace(handler.getContents());
+        } else if ("namespace".equals(name)&&handler.hasContent()&&handler.hasAttributes()){
+            this.addNamespace(handler.getContents(),handler.getAttributes().get("key"));
         } else if ("page".equals(name)) {
             inPage = false;
             this.onPageEnd();
@@ -57,6 +57,8 @@ public class WiktionaryDumpParser extends XMLFileParser {
                     this.setPageId(handler.getContents());
                 } else if ("title".equals(name)) {
                     this.setPageTitle(handler.getContents());
+                } else if("ns".equals(name)) {
+                	this.setNamespace(handler.getContents());
                 }
             } else if ("revision".equals(handler.getParent())) {
                 if ("id".equals(name)) {
@@ -81,23 +83,12 @@ public class WiktionaryDumpParser extends XMLFileParser {
     }
 
     private void setPageTitle(String title) {
-        //TODO:we should be using the namespace key-val relations, not checking for : and trying to match the word
-        String namespace = null;
-        int idx = title.indexOf(':');
-        if(idx>=0)
-        {
-            namespace = title.substring(0,idx);
-            if(!namespaces.contains(namespace))
-            {
-                namespace = null;
-            }
-            else
-            {
-                title.substring(idx+1);
-            }
-        }
-        pageParser.setTitle(title,namespace);
-        //logger.log(Level.INFO,title);
+        pageParser.setTitle(title);
+    }
+
+    private void setNamespace(String contents)
+    {
+    	pageParser.setNamespace(namespaces.getOrDefault(contents,null));
     }
 
     private void setRevision(String contents)
@@ -116,9 +107,9 @@ public class WiktionaryDumpParser extends XMLFileParser {
         pageParser.setText(contents);
     }
 
-    protected void addNamespace(final String namespace)
+    protected void addNamespace(final String namespace,String val)
     {
-        namespaces.add(namespace);
+        namespaces.put(val,namespace);
     }
 
     protected void onPageStart()
@@ -135,7 +126,6 @@ public class WiktionaryDumpParser extends XMLFileParser {
         {
             logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));
         }
-        //gather pages to save here
     }
 
 
