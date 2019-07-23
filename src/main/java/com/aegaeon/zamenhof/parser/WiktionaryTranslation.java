@@ -4,6 +4,9 @@ import com.aegaeon.zamenhof.parser.utils.ILanguage;
 import com.aegaeon.zamenhof.parser.utils.IWordType;
 import com.aegaeon.zamenhof.parser.utils.WordType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class WiktionaryTranslation extends PageObject{
 
     private String sourceWord;
@@ -18,7 +21,7 @@ public class WiktionaryTranslation extends PageObject{
 
     private IWordType wordType;
 
-    public WiktionaryTranslation(WiktionaryPage page,ILanguage sourceLanguage, String sourceWord, ILanguage targetLanguage, String targetWord, IWordType wordType)
+    private WiktionaryTranslation(WiktionaryPage page,ILanguage sourceLanguage, String sourceWord, ILanguage targetLanguage, String targetWord, IWordType wordType)
     {
         super(page);
         this.sourceLanguage = sourceLanguage;
@@ -54,19 +57,17 @@ public class WiktionaryTranslation extends PageObject{
     }
 
     @Override
-    public String toString()
+    public Map<String,String> attributes()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.sourceLanguage.getName()).append(",");
-        sb.append(this.sourceWord).append(",");
-        sb.append(this.targetLanguage.getName()).append(",");
-        sb.append(this.targetWord).append(",");
-        sb.append(this.wordType.getName()).append(",");
-        sb.append(this.getPageid()).append(",");
-        sb.append(this.getRevision()).append(",");
-        sb.append(this.getStringTimestamp()).append(",");
-        sb.append(this.sense);
-        return sb.toString();
+        return new HashMap<String,String>(){{
+            put("sourceword",sourceWord);
+            put("sourcelanguage",sourceLanguage.getName());
+            put("targetword",targetWord);
+            put("targetlanguage",targetLanguage.getName());
+            put("wordtype",wordType.getName());
+            put("pageid",String.valueOf(getPage().getId()));
+            put("sense",sense);
+        }};
     }
 }
 

@@ -1,6 +1,6 @@
 package com.aegaeon.zamenhof.parser;
 
-import java.time.LocalDateTime;
+import java.util.Map;
 
 public abstract class PageObject{
 
@@ -11,23 +11,10 @@ public abstract class PageObject{
         this.page = page;
     }
 
-    protected int getRevision() {
-        return page.getRevision();
+    protected WiktionaryPage getPage() {
+        return page;
     }
 
-    protected int getPageid() {
-        return page.getId();
-    }
-
-    protected LocalDateTime getTimestamp() {
-        return page.getTimestamp();
-    }
-
-    protected String getStringTimestamp() {
-        return page.getStringTimestamp();
-    }
-
-    @Override
-    public abstract String toString();
+    public abstract Map<String,String> attributes();
 
 }

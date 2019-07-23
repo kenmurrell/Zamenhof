@@ -21,7 +21,7 @@ public class WiktionaryEntryParserTest
 		page.setRevision("51353509");
 		page.setTimestamp("2019-01-25T05:38:10Z");
 		WiktionaryEntryParser entryParser = new WiktionaryEntryParser();
-		entryParser.parse(page,retreive(new File("if looks could kill.txt")));
+		entryParser.parse(page, retrieve(new File("if looks could kill.txt")));
 		List<PageObject> objs = entryParser.getPageObjects();
 
 		assertEquals(8,objs.size());
@@ -33,7 +33,7 @@ public class WiktionaryEntryParserTest
 
 	}
 
-	private String retreive(File testfile) throws IOException
+	private String retrieve(File testfile) throws IOException
 	{
 		StringBuilder sb = new StringBuilder();
 		FileInputStream fis = new FileInputStream("src/test/resources/"+testfile);

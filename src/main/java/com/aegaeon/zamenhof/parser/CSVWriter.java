@@ -5,27 +5,55 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class CSVWriter {
+public class CSVWriter implements IWriter{
 
-    public static void write(Collection<PageObject> objects, File outputfile)
+    private static Logger logger = Logger.getLogger(CSVWriter.class.getName());
+
+    public void write(Collection<PageObject> objects, String basename)
     {
+        int ctr = 0;
+        File filename = new File(basename+".csv");
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputfile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             for(PageObject object : objects)
             {
-                if(object instanceof WiktionaryTranslation) {
-                    writer.write(object.toString());
-                    writer.newLine();
-                }
+                writer.write(convert(object));
+                writer.newLine();
+                ctr++;
+
             }
             writer.flush();
             writer.close();
+            logger.log(Level.INFO,"Wrote "+ctr+" objects");
         }
         catch (IOException e) {
 
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Writing error "+e.getMessage());
         }
+    }
+
+    private String convert(PageObject object)
+    {
+        StringBuilder sb = new StringBuilder();
+        Map<String, String> attr = object.attributes();
+        if(object instanceof WiktionaryTranslation) {
+            sb.append(attr.get("sourcelanguage")).append(",");
+            sb.append(attr.get("sourceword")).append(",");
+            sb.append(attr.get("targetlanguage")).append(",");
+            sb.append(attr.get("targetword")).append(",");
+            sb.append(attr.get("wordtype")).append(",");
+            sb.append(attr.get("pageid")).append(",");
+            sb.append(attr.get("sense"));
+        }
+        else
+        {
+            sb.append("-");
+        }
+        return sb.toString();
     }
 
 
