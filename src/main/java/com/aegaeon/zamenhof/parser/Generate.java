@@ -13,6 +13,7 @@ public class Generate {
     private static List<IWriter> writers = new ArrayList<IWriter>(){{
         add(new CSVWriter());
         add(new XMLWriter());
+        add(new JSONWriter());
     }};
 
     public static void main(String[] args) {

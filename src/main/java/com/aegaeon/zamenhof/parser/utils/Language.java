@@ -20,9 +20,9 @@ public class Language implements ILanguage{
 
     private static boolean initialized;
 
-    protected String code;
+    private String code;
 
-    protected String name;
+    private String name;
 
     public static final ILanguage ENGLISH = get("en");
 
@@ -74,7 +74,7 @@ public class Language implements ILanguage{
         }
     }
 
-    protected Language(String code, String name)
+    private Language(String code, String name)
     {
         this.code = code;
         this.name = name;
@@ -102,7 +102,8 @@ public class Language implements ILanguage{
         if(other==null || !(other instanceof ILanguage))
         {
             return false;
-        }else
+        }
+        else
         {
             return code.equals(((ILanguage)other).getCode());
         }

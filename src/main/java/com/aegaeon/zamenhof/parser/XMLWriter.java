@@ -26,8 +26,8 @@ public class XMLWriter implements IWriter
 	{
 		File filename = new File(basename+".xml");
 		try {
-			if(objects.size()>500000)
-				throw new OutOfMemoryError("Too many objects");
+			if(objects.size()>1200000)
+				throw new OutOfMemoryError();
 			final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 			Element root = doc.createElement("translations");
 			doc.appendChild(root);
@@ -36,6 +36,7 @@ public class XMLWriter implements IWriter
 			tr.setOutputProperty(OutputKeys.INDENT,"yes");
 			tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount","3");
 			tr.transform(new DOMSource(doc),new StreamResult(filename));
+			logger.log(Level.INFO,"Wrote "+doc.getChildNodes().item(0).getChildNodes().getLength()+" objects");
 		}
 		catch (ParserConfigurationException | TransformerException e)
 		{

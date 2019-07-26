@@ -122,6 +122,11 @@ public class WiktionaryDumpParser extends XMLFileParser {
     {
         pageParser.onPageEnd();
         this.pagectr++;
+        status();
+    }
+
+    private void status()
+    {
         if(pagectr%50000==0)
         {
             logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));

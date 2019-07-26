@@ -12,13 +12,13 @@ public class Template {
 
     private Map<String,String> labeledParameters;
 
-    public Template()
+    private Template()
     {
         numberedParameters = new ArrayList<>();
         labeledParameters = new HashMap<>();
     }
 
-    public static Template create(String text)
+    private static Template create(String text)
     {
         if(!text.startsWith("{{")||!text.endsWith("}}"))
             return null;
