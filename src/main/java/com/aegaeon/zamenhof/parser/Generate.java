@@ -1,5 +1,13 @@
 package com.aegaeon.zamenhof.parser;
 
+import com.aegaeon.zamenhof.parser.model.WiktionaryDumpParser;
+import com.aegaeon.zamenhof.parser.model.WiktionaryPageParser;
+import com.aegaeon.zamenhof.parser.utils.PageObjectCollector;
+import com.aegaeon.zamenhof.parser.writers.CSVWriter;
+import com.aegaeon.zamenhof.parser.writers.IWriter;
+import com.aegaeon.zamenhof.parser.writers.JSONWriter;
+import com.aegaeon.zamenhof.parser.writers.XMLWriter;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

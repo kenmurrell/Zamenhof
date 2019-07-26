@@ -1,4 +1,7 @@
-package com.aegaeon.zamenhof.parser;
+package com.aegaeon.zamenhof.parser.writers;
+
+import com.aegaeon.zamenhof.parser.model.PageObject;
+import com.aegaeon.zamenhof.parser.model.WiktionaryTranslation;
 
 import java.io.BufferedWriter;
 import java.io.File;

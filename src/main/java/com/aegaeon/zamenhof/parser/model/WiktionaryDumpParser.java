@@ -1,4 +1,4 @@
-package com.aegaeon.zamenhof.parser;
+package com.aegaeon.zamenhof.parser.model;
 
 import java.io.File;
 import java.util.HashMap;

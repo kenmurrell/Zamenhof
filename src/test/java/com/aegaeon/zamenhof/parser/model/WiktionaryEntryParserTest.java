@@ -1,4 +1,4 @@
-package com.aegaeon.zamenhof.parser;
+package com.aegaeon.zamenhof.parser.model;
 
 import com.aegaeon.zamenhof.parser.utils.Language;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.aegaeon.zamenhof.parser;
+package com.aegaeon.zamenhof.parser.model;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -1,5 +1,7 @@
-package com.aegaeon.zamenhof.parser;
+package com.aegaeon.zamenhof.parser.writers;
 
+import com.aegaeon.zamenhof.parser.model.PageObject;
+import com.aegaeon.zamenhof.parser.model.WiktionaryTranslation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

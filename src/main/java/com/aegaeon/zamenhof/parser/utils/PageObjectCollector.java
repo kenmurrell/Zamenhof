@@ -1,4 +1,6 @@
-package com.aegaeon.zamenhof.parser;
+package com.aegaeon.zamenhof.parser.utils;
+
+import com.aegaeon.zamenhof.parser.model.PageObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
