@@ -17,9 +17,9 @@ public class WordType implements IWordType
 
 	private static boolean initialized;
 
-	public static IWordType UNKNOWN = get("UNKNOWN");
+	public static final IWordType UNKNOWN = get("UNKNOWN");
 
-	private String name;
+	private final String name;
 
 	private WordType(String name)
 	{
@@ -42,7 +42,7 @@ public class WordType implements IWordType
 		return get(name);
 	}
 
-	public static void initialize()
+	private static void initialize()
 	{
 		if(initialized)
 		{

@@ -18,7 +18,7 @@ public class Generate {
 
     private static final Logger logger = Logger.getLogger(WiktionaryDumpParser.class.getName());
 
-    private static List<IWriter> writers = new ArrayList<IWriter>(){{
+    private static final List<IWriter> writers = new ArrayList<IWriter>(){{
         add(new CSVWriter());
         add(new XMLWriter());
         add(new JSONWriter());

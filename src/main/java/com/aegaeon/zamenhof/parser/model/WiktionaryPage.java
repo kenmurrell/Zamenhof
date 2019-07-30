@@ -7,8 +7,8 @@ import java.util.Locale;
 
 public class WiktionaryPage {
 
-    private static DateTimeFormatter informat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CANADA);
-    private static DateTimeFormatter outformat = DateTimeFormatter.ofPattern("'D'yyyy-MM-dd'T'HH:mm");
+    private static final DateTimeFormatter informat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CANADA);
+    private static final DateTimeFormatter outformat = DateTimeFormatter.ofPattern("'D'yyyy-MM-dd'T'HH:mm");
     private String title;
     private int id;
     private int revision;

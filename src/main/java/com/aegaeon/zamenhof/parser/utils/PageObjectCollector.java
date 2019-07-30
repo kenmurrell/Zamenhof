@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 
 public class PageObjectCollector implements Consumer<PageObject> {
 
-    private List<PageObject> collection = new ArrayList<>();
+    private final List<PageObject> collection = new ArrayList<>();
 
-    private static Logger logger = Logger.getLogger(PageObjectCollector.class.getName());
+    private static final Logger logger = Logger.getLogger(PageObjectCollector.class.getName());
 
     @Override
     public void accept(PageObject object) {

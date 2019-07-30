@@ -20,9 +20,9 @@ public class Language implements ILanguage{
 
     private static boolean initialized;
 
-    private String code;
+    private final String code;
 
-    private String name;
+    private final String name;
 
     public static final ILanguage ENGLISH = get("en");
 
@@ -45,7 +45,7 @@ public class Language implements ILanguage{
         return name ==null ? null : nameLanguageIndex.get(name);
     }
 
-    public static void initialize()
+    private static void initialize()
     {
         if(initialized)
         {

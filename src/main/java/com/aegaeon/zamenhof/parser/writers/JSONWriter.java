@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class JSONWriter implements IWriter
 {
 
-	private static Logger logger = Logger.getLogger(CSVWriter.class.getName());
+	private static final Logger logger = Logger.getLogger(CSVWriter.class.getName());
 
 	public void write(Collection<PageObject> objects, String basename)
 	{

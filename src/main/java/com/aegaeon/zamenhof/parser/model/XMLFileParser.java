@@ -1,7 +1,6 @@
 package com.aegaeon.zamenhof.parser.model;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.SAXParser;
@@ -35,7 +34,7 @@ public abstract class XMLFileParser {
         }
 
         @Override
-        public void characters(char[] ch, int start, int length) throws SAXException
+        public void characters(char[] ch, int start, int length)
         {
             buffer.append(ch, start, length);
         }

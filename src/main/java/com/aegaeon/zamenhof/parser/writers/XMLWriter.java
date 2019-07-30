@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 public class XMLWriter implements IWriter
 {
-	private static Logger logger = Logger.getLogger(XMLWriter.class.getName());
+	private static final Logger logger = Logger.getLogger(XMLWriter.class.getName());
 
 	@Override
 	public void write(Collection<PageObject> objects, String basename)
