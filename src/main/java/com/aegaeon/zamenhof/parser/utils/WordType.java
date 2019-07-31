@@ -50,7 +50,7 @@ public class WordType implements IWordType
 		}
 		allowedIndex = new TreeMap<>();
 		try{
-			InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("/allowedwordtypes.txt"), StandardCharsets.UTF_8);
+			InputStreamReader inreader = new InputStreamReader(Language.class.getResourceAsStream("/word_types.txt"), StandardCharsets.UTF_8);
 			BufferedReader reader = new BufferedReader(inreader);
 			String line;
 			while((line = reader.readLine()) !=null)

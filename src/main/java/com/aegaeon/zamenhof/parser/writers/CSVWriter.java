@@ -2,6 +2,7 @@ package com.aegaeon.zamenhof.parser.writers;
 
 import com.aegaeon.zamenhof.parser.model.PageObject;
 import com.aegaeon.zamenhof.parser.model.WiktionaryTranslation;
+import com.aegaeon.zamenhof.parser.utils.StringTools;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,7 +51,7 @@ public class CSVWriter implements IWriter{
             sb.append(attr.get("targetword")).append(",");
             sb.append(attr.get("wordtype")).append(",");
             sb.append(attr.get("pageid")).append(",");
-            sb.append(attr.get("sense"));
+            sb.append(StringTools.replace(attr.get("sense"),',',';'));
         }
         else
         {
