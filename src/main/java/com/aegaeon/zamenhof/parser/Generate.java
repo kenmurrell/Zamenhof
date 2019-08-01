@@ -1,7 +1,6 @@
 package com.aegaeon.zamenhof.parser;
 
 import com.aegaeon.zamenhof.parser.model.WiktionaryDumpParser;
-import com.aegaeon.zamenhof.parser.model.WiktionaryPageParser;
 import com.aegaeon.zamenhof.parser.utils.PageObjectCollector;
 import com.aegaeon.zamenhof.parser.writers.CSVWriter;
 import com.aegaeon.zamenhof.parser.writers.IWriter;
@@ -30,7 +29,7 @@ public class Generate {
         String tempfile = tempdir+"/test";
 
         PageObjectCollector collector = new PageObjectCollector();
-        WiktionaryDumpParser dumpParser = new WiktionaryDumpParser(WiktionaryPageParser.create(collector));
+        WiktionaryDumpParser dumpParser = new WiktionaryDumpParser(collector);
         dumpParser.parse(new File(dumpFile));
 
         writers.forEach(w->w.write(collector.getCollection(),tempfile));

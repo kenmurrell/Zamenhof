@@ -3,6 +3,7 @@ package com.aegaeon.zamenhof.parser.model;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,19 +11,21 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     private static final Logger logger = Logger.getLogger(WiktionaryDumpParser.class.getName());
 
-    protected boolean inPage;
+    private boolean inPage;
 
-    protected String baseUrl;
+    private String baseUrl;
 
-    protected WiktionaryPageParser pageParser;
+    private WiktionaryPageParser pageParser;
+
+    private Consumer<PageObject> collector;
 
     private int pagectr;
 
     private Map<String,String> namespaces;
 
-    public WiktionaryDumpParser(WiktionaryPageParser pageParser) {
+    public WiktionaryDumpParser(Consumer<PageObject> collector) {
         namespaces = new HashMap<>();
-        this.pageParser = pageParser;
+        this.collector = collector;
         pagectr=0;
     }
 
@@ -44,6 +47,8 @@ public class WiktionaryDumpParser extends XMLFileParser {
     protected void onElementEnd(String name, DumpHandler handler) {
         if ("baseUrl".equals(name)) {
             this.setBaseUrl(handler.getContents());
+        } else if ("dbname".equals(name)) {
+            this.setPageParser(handler.getContents());
         } else if ("namespace".equals(name)&&handler.hasContent()&&handler.hasAttributes()){
             this.addNamespace(handler.getContents(),handler.getAttributes().get("key"));
         } else if ("page".equals(name)) {
@@ -78,6 +83,20 @@ public class WiktionaryDumpParser extends XMLFileParser {
         this.baseUrl = baseUrl;
     }
 
+    private void setPageParser(String dbname)
+    {
+        if(dbname.equals("enwiktionary"))
+        {
+            this.pageParser = WiktionaryPageParser.create(collector);
+            logger.log(Level.INFO,"English dump detected");
+        }
+        else
+        {
+            logger.log(Level.SEVERE,"Unknown dump language!");
+            this.exit();
+        }
+    }
+
     private void setPageId(String contents) {
         pageParser.setId(contents);
     }
@@ -103,22 +122,20 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     private void setText(String contents)
     {
-
         pageParser.setText(contents);
     }
 
-    protected void addNamespace(final String namespace,String val)
+    private void addNamespace(final String namespace, String val)
     {
         namespaces.put(val,namespace);
     }
 
-    protected void onPageStart()
+    private void onPageStart()
     {
-
         pageParser.onPageStart();
     }
 
-    protected void onPageEnd()
+    private void onPageEnd()
     {
         pageParser.onPageEnd();
         this.pagectr++;
@@ -127,13 +144,15 @@ public class WiktionaryDumpParser extends XMLFileParser {
 
     private void status()
     {
-        if(pagectr%50000==0)
+        if(pagectr%100000==0)
         {
             logger.log(Level.INFO,String.format("Parsed %d pages",pagectr));
         }
     }
 
-
-
+    private void exit()
+    {
+        System.exit(0);
+    }
 
 }
