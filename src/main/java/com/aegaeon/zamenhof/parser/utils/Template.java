@@ -1,12 +1,18 @@
 package com.aegaeon.zamenhof.parser.utils;
 
+import org.apache.commons.lang3.RegExUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Template {
+
+    private static final Pattern TEMPLATE_BRACKETS = Pattern.compile("(\\{\\{|\\}\\})");
 
     private List<String> numberedParameters;
 
@@ -22,7 +28,7 @@ public class Template {
     {
         if(!text.startsWith("{{")||!text.endsWith("}}"))
             return null;
-        String[] parameters = text.replaceAll("(\\{\\{|\\}\\})","").split("\\|");
+        String[] parameters = RegExUtils.removeAll(text,TEMPLATE_BRACKETS).split("\\|");
         if(parameters.length<1)
             return null;
         Template template = new Template();
@@ -58,7 +64,7 @@ public class Template {
             aggregateTemplates(subtext,headers);
             for(String header : headers)
             {
-                text = text.replace(header,"<TEMPLATE>");
+                text = StringUtils.replace(text,header,"<TEMPLATE>");
             }
         }
         int endidx  = text.indexOf("}}");

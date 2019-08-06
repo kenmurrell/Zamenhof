@@ -1,6 +1,7 @@
 package com.aegaeon.zamenhof.parser.model;
 
 import com.aegaeon.zamenhof.parser.utils.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -17,7 +18,7 @@ public class WiktionaryEntryParser {
     }
 
     public void parse(final WiktionaryPage page, String text) {
-        Iterator<String> iter = Arrays.asList(text.split("\n")).iterator();
+        Iterator<String> iter = Arrays.asList(StringUtils.splitByWholeSeparator(text,"\n")).iterator();
         ILanguage currentLanguage = null;
         String currentWordtype = "";
         String currentSubheader1 = "";
@@ -28,18 +29,18 @@ public class WiktionaryEntryParser {
             String line = iter.next().trim();
             if (isHead(line)) {
                 if (2 == getLevel(line, 0)) {
-                    currentLanguage = Language.getByName(StringTools.remove(line,'=').trim().toUpperCase());
+                    currentLanguage = Language.getByName(formatHeader(line));
                     currentWordtype = "";
                     currentSubheader1 = "";
                     currentSubheader2 = "";
                 } else if (3 == getLevel(line, 0)) {
-                    currentWordtype = StringTools.remove(line,'=').trim().toUpperCase();
+                    currentWordtype = formatHeader(line);
                     currentSubheader1 = "";
                 } else if (4 == getLevel(line, 0)) {
-                    currentSubheader1 = StringTools.remove(line,'=').trim().toUpperCase();
+                    currentSubheader1 = formatHeader(line);
                     currentSubheader2 = "";
                 } else if (5 == getLevel(line, 0)) {
-                    currentSubheader2 = StringTools.remove(line,'=').trim().toUpperCase();
+                    currentSubheader2 = formatHeader(line);
                 }
             }
             else if (!line.isEmpty() && isTranslationSection(currentLanguage, currentSubheader1,currentSubheader2))
@@ -53,7 +54,7 @@ public class WiktionaryEntryParser {
                         if (isTranslation(template)) {
                             ILanguage targetLang = Language.getByCode(template.getNumberedParameter(1));
                             if(targetLang!=null) {
-                                String targetWord = template.getNumberedParameter(2);
+                                String targetWord = cleanWord(template.getNumberedParameter(2));
 	                              //pages marked as "<word>/translations" are only placeholders for the translations of a main page
                                 String sourceWord = page.getTitle().replaceAll("\\/translations","");
                                 IWordType wordType = Optional.ofNullable(WordType.getByName(currentWordtype)).orElse(WordType.getByName(currentSubheader1));
@@ -74,6 +75,16 @@ public class WiktionaryEntryParser {
 
     private int getLevel(String line, int level) {
         return line.startsWith("=") ? getLevel(line.substring(1), level + 1) : level;
+    }
+
+    private String cleanWord(String dirtyStr)
+    {
+        return StringTools.removePunc(dirtyStr);
+    }
+
+    private String formatHeader(String header)
+    {
+        return StringUtils.upperCase(StringUtils.strip(StringTools.remove(header,'=')));
     }
 
     private boolean isHead(String line) {
