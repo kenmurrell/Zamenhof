@@ -28,6 +28,8 @@ public class Language implements ILanguage{
 
     public static final ILanguage CZECH = get("cs");
 
+    public static final ILanguage FRENCH = get("fr");
+
     private static ILanguage get(final String code) {
         initialize();
         return code == null ? null : codelanguageIndex.get(code);

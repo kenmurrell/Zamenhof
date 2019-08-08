@@ -87,8 +87,13 @@ public class WiktionaryDumpParser extends XMLFileParser {
     {
         if(dbname.equals("enwiktionary"))
         {
-            this.pageParser = WiktionaryPageParser.create(collector);
+            this.pageParser = new WiktionaryPageParser(collector, ENWiktionaryEntryParser::new);
             logger.log(Level.INFO,"English dump detected");
+        }
+        else if(dbname.equals("frwiktionary"))
+        {
+            this.pageParser = new WiktionaryPageParser(collector, FRWiktionaryEntryParser::new);
+            logger.log(Level.INFO,"Dump francais détecté");
         }
         else
         {

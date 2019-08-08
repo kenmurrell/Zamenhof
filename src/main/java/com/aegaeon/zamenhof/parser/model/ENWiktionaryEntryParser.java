@@ -7,16 +7,17 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WiktionaryEntryParser {
+public class ENWiktionaryEntryParser implements IWiktionaryEntryParser{
 
     private static final Pattern SENSE_PATTERN = Pattern.compile("\\{\\{trans\\-top\\|(.*)\\}\\}");
 
     private List<PageObject> translations;
 
-    public WiktionaryEntryParser() {
+    public ENWiktionaryEntryParser() {
         translations = new ArrayList<>();
     }
 
+    @Override
     public void parse(final WiktionaryPage page, String text) {
         Iterator<String> iter = Arrays.asList(StringUtils.splitByWholeSeparator(text,"\n")).iterator();
         ILanguage currentLanguage = null;
@@ -95,6 +96,7 @@ public class WiktionaryEntryParser {
         return Objects.equals(Language.ENGLISH, language) && (subheader1.equals("TRANSLATIONS") || subheader2.equals("TRANSLATIONS"));
     }
 
+    @Override
     public List<PageObject> getPageObjects()
     {
         return this.translations;

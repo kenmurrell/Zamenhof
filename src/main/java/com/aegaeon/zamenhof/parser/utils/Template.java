@@ -24,7 +24,7 @@ public class Template {
         labeledParameters = new HashMap<>();
     }
 
-    private static Template create(String text)
+    public static Template create(String text)
     {
         if(!text.startsWith("{{")||!text.endsWith("}}"))
             return null;
