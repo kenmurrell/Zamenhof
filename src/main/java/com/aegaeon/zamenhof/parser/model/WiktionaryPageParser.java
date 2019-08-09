@@ -2,28 +2,25 @@ package com.aegaeon.zamenhof.parser.model;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class WiktionaryPageParser {
 
     private WiktionaryPage page;
 
-    private WiktionaryEntryParser entryparser;
+    private IWiktionaryEntryParser entryparser;
 
     private String currentNamespace;
 
     private Consumer<PageObject> collector;
 
-    private WiktionaryPageParser(Consumer<PageObject> collector)
+    private Supplier<IWiktionaryEntryParser> entryParserSupplier;
+
+    public WiktionaryPageParser(Consumer<PageObject> collector, Supplier<IWiktionaryEntryParser> entryParserSupplier)
     {
         this.collector = collector;
+        this.entryParserSupplier = entryParserSupplier;
     }
-
-    public static WiktionaryPageParser create(Consumer<PageObject> collector)
-    {
-        //TODO:multiple dump languages?
-        return new WiktionaryPageParser(collector);
-    }
-
 
     public void setTimestamp(String timestamp) {
         this.page.setTimestamp(timestamp);
@@ -57,7 +54,7 @@ public class WiktionaryPageParser {
     protected void onPageStart()
     {
         this.page = new WiktionaryPage();
-        this.entryparser = new WiktionaryEntryParser();
+        this.entryparser = entryParserSupplier.get();
     }
 
     protected void onPageEnd()

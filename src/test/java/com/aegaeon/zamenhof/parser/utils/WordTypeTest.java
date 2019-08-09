@@ -28,4 +28,12 @@ public class WordTypeTest
 		assertNotNull(type);
 		assertEquals("UNKNOWN",type.getName());
 	}
+
+	@Test
+	public void testFrenchVerb()
+	{
+		IWordType type = WordType.getByFRName("verbe".toUpperCase());
+		assertNotNull(type);
+		assertEquals("VERB",type.getName());
+	}
 }

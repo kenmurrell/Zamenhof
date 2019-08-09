@@ -56,6 +56,11 @@ public class WiktionaryTranslation extends PageObject{
         this.sense = sense;
     }
 
+    public String getSense()
+    {
+        return sense;
+    }
+
     @Override
     public Map<String,String> attributes()
     {

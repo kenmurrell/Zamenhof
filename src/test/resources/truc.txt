@@ -1,0 +1,118 @@
+== {{langue|fr}} ==
+=== {{S|étymologie}} ===
+: ''([[#fr-nom-1|Nom 1]], [[#fr-adj|Adjectif]])'' Du latin populaire ''[[trudicare#la|trudicare]]'', de ''[[trudere#la|trudere]]'' « pousser », « cogner ».
+: ''([[#fr-nom-2|Nom 2]])'' De l’anglais ''[[truck#en-nom|truck]]''.
+
+=== {{S|nom|fr|num=1}} ===
+{{fr-rég|tʁyk}}
+'''truc''' {{pron|tʁyk|fr}} {{m}}
+# [[astuce|Astuce]], un [[tour de main]], un [[procédé]] ingénieux.
+#* ''Les prestidigitateurs ont leurs '''trucs'''''.
+#* ''On vient d’arrêter et d’envoyer au Dépôt un charbonnier, le nommé Gandillot, qui avait trouvé un excellent '''truc''' pour faire fortune aux dépens de la bourse et de la santé de ses clients. Cet honnête industriel livrait à ses pratiques, au lieu de l’eau qu’on lui demandait, un petit vin blanc de son pays qu’il achetait à vil prix.'' {{source|{{w|Alphonse Allais}}, ''Contes humoristiques''}}
+# {{familier|fr}} [[quelque chose|Quelque chose]] dont on ne connait pas le nom, ou dont on se méfie.
+#* ''On n'a pas envie de blablater. Il nous arrive un '''truc''' fumant, une dégueulasserie de haut style. Pour se dépêtrer d'une merderie pareille, il convient de conserver la tête froide.'' {{source|{{w|Frédéric Dard}}, ''San-Antonio : Hue, Dada !'', Paris : Fleuve noir, 1977, chap. 8}}
+#* ''Faut que tu te lèves, que tu te tapes le R.E.R., que tu répondes pas quand le patron te donne des ordres pour taffer un '''truc''' de merde. Trop relou.'' {{source|Rodophe Bléger, ''Aux larmes sauvageons !'', Éditions Erinnyes, 2012, p. 24}}
+# {{géographie|fr}} Montagne arrondie.
+# {{hippisme|fr}} Performance très bonne et inattendue d'un cheval dans une course.
+#*''Après son '''truc''' sur la cendrée de Vincennes la dernière fois, ce cheval est dans la ligne de mire des parieurs.''
+
+==== {{S|synonymes}} ====
+;Procédé ingénieux
+: [[astuce]], [[combine]]
+;Chose dont on ne sait pas le nom
+:Voir {{thésaurus|fr|bidule, truc, machin}}
+;Montagne arrondie
+: [[dôme]]
+
+==== {{S|vocabulaire}} ====
+* {{voir thésaurus|fr|astuce}}
+
+==== {{S|traductions}} ====
+{{trad-début|Astuce}}
+* {{T|de}} : {{trad+|de|Kniff|m}}, {{trad+|de|Trick|m}}, {{trad+|de|Dreh|m}}, {{trad+|de|Pfiff|m}}
+* {{T|en}} : {{trad+|en|trick}}, {{trad+|en|twist}}
+* {{T|es}} : {{trad+|es|artilugio}}, {{trad-|es|cosilla}}, {{trad+|es|chisme}} {{m}}
+* {{T|io}} : {{trad+|io|habilajo}}
+* {{T|it}} : {{trad+|it|trucco}} {{m}}
+* {{T|oc}} : {{trad-|oc|triquet|m}}
+* {{T|pt}} : {{trad+|pt|truque}} {{m}}
+* {{T|se}} : {{trad--|se|goansta}}
+* {{T|ses}} : {{trad--|ses|haywana}}
+{{trad-fin}}
+
+{{trad-début|Quelque chose dont on ne connaît pas le nom}}
+* {{T|de}} : {{trad+|de|Sache|f}}, {{trad+|de|Ding|n}}, {{trad+|de|Fall|m}} (''das ist nicht mein ~''), {{trad+|de|Dingsda}} {{n}} {{familier|nocat=1}}
+* {{T|zgh}} : {{trad--|zgh|ⵡⴰⵏⵏⴰⴷ|m|tr=Wannad}}, {{trad--|zgh|ⵜⴰⵏⵏⴰⴷ|f|tr=Tannad}}, {{trad--|zgh|ⵡⵉⵏⵏⴰⴷ|mp|tr=Winnad}}, {{trad--|zgh|ⵜⵉⵏⵏⴰⴷ|fp|tr=Tinnad}}
+* {{T|en}} : {{trad+|en|thing}}, {{trad+|en|stuff}}, {{trad+|en|thingamajig}}, {{trad+|en|gadget}}, {{trad+|en|thingy}}, {{trad+|en|whatchamacallit}}, {{trad+|en|doodad}}, {{trad+|en|whuzzat}}
+* {{T|es}} : {{trad+|es|cosa|f}}
+* {{T|it}} : {{trad-|it|aggeggio}} {{m}}, {{trad+|it|coso}} {{m}} (2)
+* {{T|nl}} : {{trad+|nl|ding|n}}, {{trad+|nl|dinges|m}}
+* {{T|pt}} : {{trad+|pt|coisa}} {{f}}
+* {{T|ru}} : {{trad+|ru|штука|f}}
+* {{T|zdj}} : {{trad--|zdj|mpba hindru}}
+* {{T|vec}} : {{trad-|vec|stranfiero}} {{m}}
+{{trad-fin}}
+
+==== {{S|faux-amis}} ====
+{{(}}
+* {{F|fr|it}} : {{lien|trucco|it}} ([[maquillage]])
+{{)}}
+
+=== {{S|nom|fr|num=2}} ===
+{{fr-rég|tʁyk}}
+'''truc''' {{pron|tʁyk|fr}} {{m}}
+# {{transport|fr}} Long [[wagon]], ou [[chariot]] en manière de [[plate-forme]] destiné au transport des matières lourdes sur les chemins de fer.
+
+==== {{S|traductions}} ====
+{{trad-début}}
+* {{T|en}} : {{trad+|en|flatcar}}, {{trad+|en|flat car}}
+{{trad-fin}}
+
+=== {{S|adjectif|fr}} ===
+'''truc''' {{invar}}
+# En substitution à un adjectif que l’on ne souhaite pas préciser.
+#* ''Espaces localement '''truc'''.'' {{source|Hervé Queffélec, ''Topologie'', Titre du chapitre 6}}
+
+==== {{S|dérivés}} ====
+* [[localement truc]]
+
+=== {{S|prononciation}} ===
+* {{écouter|lang=fr|France <!-- précisez svp la ville ou la région -->|tʁ̥yk|audio=Fr-truc.ogg}}
+* {{écouter|lang=fr|France (Vosges)|audio=LL-Q150 (fra)-Poslovitch-truc.wav}}
+
+=== {{S|anagrammes}} ===
+* [[crut]]
+* [[crût]]
+* [[turc]]
+
+=== {{S|voir aussi}} ===
+* {{WP}}
+*{{Wikisource|Les Excentricités du langage/T#truc|« truc »}} dans « ''Les Excentricités du langage'' » de Lorédan Larchey, 1865
+
+[[Catégorie:Marques substitutives en français]]
+
+== {{langue|nl}} ==
+=== {{S|étymologie}} ===
+: {{ébauche-étym|nl}}
+
+=== {{S|nom|nl}} ===
+'''truc'''
+# [[artifice|Artifice]].
+
+==== {{S|synonymes}} ====
+* [[foefje]]
+* [[kneep]]
+* [[kunstgreep]]
+* [[streek]]
+* [[stunt]]
+* [[toer]]
+
+=== {{S|taux de reconnaissance}} ===
+{{nl-taux|97,7|94,6|pourB=95|pourNL=98}}
+
+=== {{S|prononciation}} ===
+{{ébauche-pron|nl}}
+* {{écouter|lang=nl|Pays-Bas <!-- précisez svp la ville ou la région -->||audio=Nl-truc.ogg}}
+
+=== {{S|références}} ===
+{{Références}}
