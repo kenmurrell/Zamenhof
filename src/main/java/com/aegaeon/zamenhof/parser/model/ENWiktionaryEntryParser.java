@@ -53,10 +53,11 @@ public class ENWiktionaryEntryParser implements IWiktionaryEntryParser{
                     List<Template> templates = Template.createAll(line);
                     for (Template template : templates) {
                         if (isTranslation(template)) {
-                            ILanguage targetLang = Language.getByCode(template.getNumberedParameter(1));
+                            ILanguage targetLang = template.getNumberedParameter(1).map(Language::getByCode).orElse(null);
                             if(targetLang!=null) {
-                                String targetWord = cleanWord(template.getNumberedParameter(2));
-	                              //pages marked as "<word>/translations" are only placeholders for the translations of a main page
+                                //TODO: fix the way template params are handled as optionals here
+                                String targetWord = cleanWord(template.getNumberedParameter(2).get());
+                                //pages marked as "<word>/translations" are only placeholders for the translations of a main page
                                 String sourceWord = page.getTitle().replaceAll("\\/translations","");
                                 IWordType wordType = Optional.ofNullable(WordType.getByName(currentWordtype)).orElse(WordType.getByName(currentSubheader1));
                                 WiktionaryTranslation translation = WiktionaryTranslation.create(page, currentLanguage, sourceWord, targetLang, targetWord,wordType);
@@ -71,7 +72,7 @@ public class ENWiktionaryEntryParser implements IWiktionaryEntryParser{
     }
 
     private boolean isTranslation(Template template) {
-        return Arrays.asList("t", "t+").contains(template.getNumberedParameter(0)) && template.numberedParameterCount() >= 3;
+        return Arrays.asList("t", "t+").contains(template.getNumberedParameter(0).get()) && template.numberedParameterCount() >= 3;
     }
 
     private int getLevel(String line, int level) {

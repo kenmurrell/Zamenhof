@@ -61,6 +61,7 @@ qu  Quechua
 ro  Romanian
 rm  Romansch
 ru  Russian
+se  Sami
 sa  Sanskrit
 sc  Sardinian
 si  Sinhalese

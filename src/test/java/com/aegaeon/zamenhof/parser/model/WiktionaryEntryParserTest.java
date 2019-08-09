@@ -28,8 +28,9 @@ public class WiktionaryEntryParserTest
 		WiktionaryTranslation obj = (WiktionaryTranslation) objs.get(0);
 		assertNotNull(obj);
 		assertEquals("if looks could kill",obj.getSourceWord());
-		assertEquals(Language.CZECH,obj.getTargetLanguage());
 		assertEquals("kdyby pohled mohl zabíjet",obj.getTargetWord());
+		assertEquals(Language.CZECH,obj.getTargetLanguage());
+		assertEquals("used to characterize a look of strong hostility",obj.getSense());
 	}
 
 	@Test
@@ -44,12 +45,21 @@ public class WiktionaryEntryParserTest
 		entryParser.parse(page, retrieve(new File("truc.txt")));
 		List<PageObject> objs = entryParser.getPageObjects();
 
-		assertEquals(40,objs.size());
-		WiktionaryTranslation obj = (WiktionaryTranslation) objs.get(0);
-		assertNotNull(obj);
-		assertEquals("if looks could kill",obj.getSourceWord());
-		assertEquals(Language.CZECH,obj.getTargetLanguage());
-		assertEquals("kdyby pohled mohl zabíjet",obj.getTargetWord());
+		assertEquals(34,objs.size());
+		WiktionaryTranslation obj1 = (WiktionaryTranslation) objs.get(4);
+		assertNotNull(obj1);
+		assertEquals("truc",obj1.getSourceWord());
+		assertEquals("twist",obj1.getTargetWord());
+		assertEquals(Language.ENGLISH,obj1.getTargetLanguage());
+		assertEquals("Astuce",obj1.getSense());
+
+		WiktionaryTranslation obj2 = (WiktionaryTranslation) objs.get(23);
+		assertNotNull(obj2);
+		assertEquals("truc",obj2.getSourceWord());
+		assertEquals("stuff",obj2.getTargetWord());
+		assertEquals(Language.ENGLISH,obj2.getTargetLanguage());
+		assertEquals("Quelque chose dont on ne connaît pas le nom",obj2.getSense());
+
 
 	}
 

@@ -3,10 +3,7 @@ package com.aegaeon.zamenhof.parser.utils;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -75,20 +72,31 @@ public class Template {
         }
     }
 
-    public String getNumberedParameter(int i)
+    public Optional<String> getNumberedParameter(int num)
     {
-        if(i<this.numberedParameters.size())
+        if(num<this.numberedParameters.size())
         {
-            return this.numberedParameters.get(i);
+            return Optional.of(this.numberedParameters.get(num));
         }
-        else
-        {
-            return null;
-        }
+        return Optional.empty();
     }
 
     public int numberedParameterCount()
     {
         return this.numberedParameters.size();
+    }
+
+    public Optional<String> getLabelledParameter(String name)
+    {
+        if(labeledParameters.containsKey(name))
+        {
+            return Optional.of(labeledParameters.get(name));
+        }
+        return Optional.empty();
+    }
+
+    public int labelledParameterCount()
+    {
+        return this.labeledParameters.size();
     }
 }
