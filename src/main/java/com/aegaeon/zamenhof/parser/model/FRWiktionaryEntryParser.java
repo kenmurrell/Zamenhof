@@ -4,14 +4,13 @@ import com.aegaeon.zamenhof.parser.utils.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FRWiktionaryEntryParser implements IWiktionaryEntryParser
 {
-	private static final Pattern SENSE_PATTERN = Pattern.compile("\\{\\{trad\\-début\\|(.*)\\}\\}");
-
 	private static final Pattern HEADER_PATTERN = Pattern.compile("\\={2,4}\\s?\\{\\{.*\\}\\}\\s?\\={2,4}");
+
+	private static final Set<String> TRANSLATION_TEMPLATES = new HashSet<>(Arrays.asList("trad", "trad+", "trad-", "trad--"));
 
 	private List<PageObject> translations;
 
@@ -26,12 +25,11 @@ public class FRWiktionaryEntryParser implements IWiktionaryEntryParser
 		IWordType currentWordtype = null;
 		String currentSubheader = "";
 		String currentSense = "";
-		//TODO: this is a really shitty parser....we can do better
 		while (iter.hasNext()) {
 			String line = iter.next().trim();
 			if (isHeader(line)) {
 				int level = getLevel(line,0);
-				Optional<Template> headerTemplate = Optional.ofNullable(Template.create(StringTools.remove(line,'=').trim()));
+				Optional<Template> headerTemplate = Optional.ofNullable(Template.create(formatHeader(line)));
 				if (2==level && headerTemplate.isPresent()) {
 					currentLanguage = fetchHeaderLanguage(headerTemplate.get());
 					currentWordtype = null;
@@ -45,16 +43,15 @@ public class FRWiktionaryEntryParser implements IWiktionaryEntryParser
 			}
 			else if (!line.isEmpty() && isTranslationSection(currentLanguage, currentWordtype,currentSubheader))
 			{
-				Matcher senseMatch = SENSE_PATTERN.matcher(line);
-				if (senseMatch.find()) {
-					currentSense = senseMatch.group(1);
+				List<Template> templates = Template.createAll(line);
+				if(templates.size()==1&&templates.get(0).getNumberedParameter(0).isPresent()&&templates.get(0).getNumberedParameter(0).get().equals("trad-début")){
+					currentSense = templates.get(0).getNumberedParameter(1).orElse("");
 				} else {
-					List<Template> templates = Template.createAll(line);
 					for (Template template : templates) {
 						if (isTranslationEntry(template)) {
-							ILanguage targetLang = Language.getByCode(template.getNumberedParameter(1).get());
+							ILanguage targetLang = template.getNumberedParameter(1).map(Language::getByCode).orElse(null);
 							if(targetLang!=null) {
-								String targetWord = cleanWord(template.getNumberedParameter(2).get());
+								String targetWord = template.getNumberedParameter(2).map(this::cleanWord).get();
 								WiktionaryTranslation translation = WiktionaryTranslation.create(page, currentLanguage, page.getTitle(), targetLang, targetWord,currentWordtype);
 								translation.setSense(currentSense);
 								this.translations.add(translation);
@@ -93,7 +90,8 @@ public class FRWiktionaryEntryParser implements IWiktionaryEntryParser
 	}
 
 	private boolean isTranslationEntry(Template template) {
-		return template.numberedParameterCount() >= 3 && Arrays.asList("trad","trad+","trad-","trad--").contains(template.getNumberedParameter(0).get());
+		Optional<String> name = template.getNumberedParameter(0);
+		return template.numberedParameterCount() >= 3 && name.isPresent()&&TRANSLATION_TEMPLATES.contains(name.get());
 	}
 
 	private int getLevel(String line, int level) {
@@ -107,11 +105,7 @@ public class FRWiktionaryEntryParser implements IWiktionaryEntryParser
 
 	private String formatHeader(String header)
 	{
-		return StringUtils.upperCase(StringUtils.strip(StringTools.remove(header, '=')));
-	}
-
-	private boolean isTranslationSection(ILanguage language, String subheader1, String subheader2) {
-		return Objects.equals(Language.ENGLISH, language) && (subheader1.equals("TRANSLATIONS") || subheader2.equals("TRANSLATIONS"));
+		return StringUtils.strip(StringTools.remove(header, '='));
 	}
 
 	@Override
