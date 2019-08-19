@@ -9,7 +9,7 @@ public class WordTypeTest
 	@Test
 	public void testWordTypePronoun()
 	{
-		IWordType type = WordType.getByName("noun".toUpperCase());
+		IWordType type = WordType.getByENName("noun".toUpperCase());
 		assertNotNull(type);
 		assertEquals("NOUN",type.getName());
 	}
@@ -17,7 +17,7 @@ public class WordTypeTest
 	@Test
 	public void testWordTypeBanned()
 	{
-		IWordType type = WordType.getByName("death".toUpperCase());
+		IWordType type = WordType.getByENName("death".toUpperCase());
 		assertNull(type);
 	}
 

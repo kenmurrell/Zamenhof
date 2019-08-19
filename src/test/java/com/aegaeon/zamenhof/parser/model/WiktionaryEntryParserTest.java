@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -59,8 +60,27 @@ public class WiktionaryEntryParserTest
 		assertEquals("stuff",obj2.getTargetWord());
 		assertEquals(Language.ENGLISH,obj2.getTargetLanguage());
 		assertEquals("Quelque chose dont on ne connaît pas le nom",obj2.getSense());
+	}
 
+	@Test
+	public void expectPTTranslations() throws IOException
+	{
+		WiktionaryPage page = new WiktionaryPage();
+		page.setTitle("guitarra");
+		page.setId("80322");
+		page.setRevision("2475380");
+		page.setTimestamp("2018-01-07T16:57:12Z");
+		IWiktionaryEntryParser entryParser = new PTWiktionaryEntryParser();
+		entryParser.parse(page, retrieve(new File("guitarra.txt")));
+		List<PageObject> objs = entryParser.getPageObjects();
 
+		assertEquals(50,objs.size());
+		WiktionaryTranslation obj = (WiktionaryTranslation) objs.get(16);
+		assertNotNull(obj);
+		assertEquals("guitarra",obj.getSourceWord());
+		assertEquals("guitare",obj.getTargetWord());
+		assertEquals(Language.FRENCH,obj.getTargetLanguage());
+		assertTrue(obj.getSense().isEmpty());
 	}
 
 	private String retrieve(File testfile) throws IOException

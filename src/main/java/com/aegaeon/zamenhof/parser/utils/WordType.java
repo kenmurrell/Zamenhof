@@ -18,6 +18,8 @@ public class WordType implements IWordType
 
 	private static Map<String,IWordType> frenchIndex;
 
+	private static Map<String,IWordType> portugueseIndex;
+
 	private static boolean initialized;
 
 	public static final IWordType UNKNOWN = get("UNKNOWN");
@@ -40,9 +42,10 @@ public class WordType implements IWordType
 		return name==null? null : allowedIndex.get(name);
 	}
 
-	public static IWordType getByName(final String name)
+	public static IWordType getByENName(final String name)
 	{
-		return get(name);
+		initialize();
+		return name==null? null : allowedIndex.get(name);
 	}
 
 	public static IWordType getByFRName(final String name)
@@ -51,7 +54,13 @@ public class WordType implements IWordType
 		return name==null? null : frenchIndex.get(name);
 	}
 
-	private static void initialize()
+	public static IWordType getByPTName(final String name)
+	{
+		initialize();
+		return name==null? null : portugueseIndex.get(name);
+	}
+
+		private static void initialize()
 	{
 		if(initialized)
 		{
@@ -59,30 +68,43 @@ public class WordType implements IWordType
 		}
 		allowedIndex = new HashMap<>();
 		frenchIndex = new HashMap<>();
+		portugueseIndex = new HashMap<>();
 		try{
 			InputStream enstream = WordType.class.getResourceAsStream("/en_pos_codes.txt");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(enstream, StandardCharsets.UTF_8));
+			BufferedReader enreader = new BufferedReader(new InputStreamReader(enstream, StandardCharsets.UTF_8));
 			String line;
-			while((line = reader.readLine()) !=null)
+			while((line = enreader.readLine()) !=null)
 			{
 				IWordType wordtype = new WordType(line);
 				allowedIndex.put(line,wordtype);
 			}
+			enstream.close();
+			enreader.close();
 
-			InputStream frstream = WordType.class.getResourceAsStream("/fr_pos_codes.txt");
-			BufferedReader fr_reader = new BufferedReader(new InputStreamReader(frstream, StandardCharsets.UTF_8));
-			while((line = fr_reader.readLine()) !=null)
-			{
-				String[] fields = line.split("\\s\\s\\s");
-				String frname = fields[0];
-				IWordType enname = allowedIndex.get(fields[1]);
-				frenchIndex.put(frname,enname);
-			}
+			load("fr_pos_codes.txt",frenchIndex);
+			load("pt_pos_codes.txt",portugueseIndex);
+
 			initialized = true;
 		}
 		catch (IOException ex)
 		{
 			logger.log(Level.SEVERE, "garbel shit is happening");
 		}
+	}
+
+	private static void load(String codefile, Map<String,IWordType> index) throws IOException
+	{
+		InputStream stream = WordType.class.getResourceAsStream("/"+codefile);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+		String line;
+		while((line = reader.readLine()) !=null)
+		{
+			String[] fields = line.split("\\s\\s\\s");
+			String name = fields[0];
+			IWordType enname = allowedIndex.get(fields[1]);
+			index.put(name,enname);
+		}
+		stream.close();
+		reader.close();
 	}
 }

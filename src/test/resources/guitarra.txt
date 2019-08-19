@@ -1,0 +1,154 @@
+{{Wikipédia}}
+[[Imagem:Guitar Epiphone 01.jpg|thumb|150px|right|<center>Guitarra</center>]]
+
+={{-pt-}}=
+==Substantivo==
+{{flex.pt|fs=guitarra|fp=guitarras}}
+{{paroxítona|gui|tar|ra}}, {{f}}
+# nome [[genérico]] de uma [[família]] de [[instrumento]]s [[musical|musicais]] de [[corda]]s, ou [[cordofone]]s
+#* ''Vou ao Brasil com uma formação que inclui '''guitarra''', baixo e trompete. Já vi a cantora Keren Ann cantando com uma banda assim.'' {{OESP|2007|outubro|26}}
+# {{escopo|em oposição a [[violão]]}} [[guitarra elétrica]]
+
+===Tradução===
+{{tradini}}
+* {{trad|sq|kitara}}
+* {{trad|de|Gitarre}}
+* {{trad|ar|قيثارة}}
+* {{trad|az|gitara}}
+* {{trad|bn|গীটার}}
+* {{trad|bs|gitara}}
+* {{trad|bg|китара}}
+* {{trad|yue|結他}}
+* {{t|ca|guitarra|f}}
+* {{trad|cs|kytara}}
+* {{trad|zh|吉他}}
+* {{trad|ko|기타}}
+* {{trad|hr|gitara}}
+* {{trad|da|guitar}}
+* {{trad|sk|gitara}}
+* {{t|sl|kitara|f}}
+* {{t|es|guitarra|f}}
+* {{trad|eo|gitaro}}
+* {{trad|et|kitarr}}
+* {{trad|fi|kitara}}
+* {{trad|fr|guitare}}
+* {{trad|fy|gitaar}}
+* {{trad|gl|guitarra}}
+* {{trad|cy|gitâr}}
+* {{trad|el|κιθάρα}}
+* {{trad|he|גיטרה}}
+* {{trad|nl|gitaar}}
+* {{trad|hu|gitár}}
+* {{trad|io|gitaro}}
+* {{trad|id|gitar}}
+* {{trad|en|guitar}}
+* {{trad|ang|ġitārre}}
+* {{trad|ia|guitarra}}
+{{tradmeio}}
+* {{trad|is|gítar}}
+* {{trad|it|chitarra}}
+* {{trad|ja|ギター}}
+* {{trad|kn|ಗಿಟಾರ್}}
+* {{trad|la|cithara}}
+* {{trad|lv|ģitāra}}
+* {{trad|li|gitaar}}
+* {{trad|lt|gitara}}
+* {{trad|jbo|jgita}}
+* {{trad|mk|гитара}}
+* {{trad|ms|gitar}}
+* {{trad|mzn|گیتار}}
+* {{trad|nan|gí-tah}}
+* {{trad|mwl|guitarra}}
+* {{trad|nah|mecahuēhuētl}}
+* {{trad|roa-nor|dgitare}}
+* {{trad|no|gitar}}
+* {{trad|nn|gitar}}
+* {{trad|fa|گیتار}}
+* {{trad|pl|gitara}}
+* {{trad|qu|kitara}}
+* {{trad|ro|chitară}}
+* {{trad|ru|гитара}}
+* {{trad|sr|гитара}}
+* {{trad|sh|gitara}}
+* {{trad|sv|gitarr}}
+* {{trad|tl|gitara}}
+* {{trad|th|กีตาร์}}
+* {{trad|ta|கிற்றார்}}
+* {{trad|tr|gitar}}
+* {{trad|uk|гітара}}
+* {{trad|vi|ghi-ta}}
+* {{trad|vo|gitar}}
+{{tradfim}}
+
+===Verbetes derivados===
+* [[guitarrista]]
+
+=={{etimologia|pt}}==
+: Do árabe ''qīṯārah'' e este do grego ''κιθάρα'', ([[cítara]]).
+
+=={{pronúncia|pt}}==
+* AFI: [gi'taʀɐ]
+
+==Ver também==
+===No Wikcionário===
+* [[Wikisaurus:música]]
+
+==Anagrama==
+# [[traguira]]
+
+[[Categoria:Substantivo (Português)]]
+[[Categoria:Instrumento musical (Português)]]
+
+
+={{-ca-}}=
+==Substantivo==
+'''guitarra'''
+# [[guitarra#{{pt}}|guitarra]]
+
+[[Categoria:Substantivo (Catalão)]]
+[[Categoria:Instrumento musical (Catalão)]]
+
+
+={{-es-}}=
+==Substantivo==
+{{flex.es|fs=guitarra|fp=guitarras}}
+{{paroxítona|gui|tar|ra|lang=es}}, {{f}}
+# [[guitarra#{{pt}}|guitarra]]
+#* ''A la '''guitarra''' de Miguel Tarzia se sumó la de Patricio Carpossi y el tecladista Hernán Jacinto reemplazó a Francisco Lo Vuolo en el Fender Rhodes.'' {{clarin|2007|novembro|03}}
+
+=={{etimologia|es}}==
+: Do árabe ''qīṯārah'' e este do aramaico ''qipārā'' e este de grego ''κιθάρα'' ([[cítara]]).
+
+=={{pronúncia|es}}==
+* AFI: [gi'ta.ra]
+
+[[Categoria:Substantivo (Espanhol)]]
+[[Categoria:Instrumento musical (Espanhol)]]
+
+
+={{-gl-}}=
+==Substantivo==
+'''guitarra'''
+# [[guitarra#{{pt}}|guitarra]]
+
+[[Categoria:Substantivo (Galego)]]
+[[Categoria:Instrumento musical (Galego)]]
+
+
+={{-ia-}}=
+==Substantivo==
+'''guitarra'''
+# [[guitarra#{{pt}}|guitarra]]
+
+[[Categoria:Substantivo (Interlíngua)]]
+[[Categoria:Instrumento musical (Interlíngua)]]
+
+
+={{-mwl-}}=
+==Substantivo==
+{{flex.mwl|fs=guitarra|fp=guitarras}}
+{{paroxítona|gui|tar|ra|língua=mwl}}, {{f}}
+# {{escopo|mwl|Objeto|Instrumento musical}} [[guitarra#{{pt}}|guitarra]]
+
+[[Categoria:Substantivo (Mirandês)]]
+[[Categoria:Entrada com imagem (Mirandês)]]

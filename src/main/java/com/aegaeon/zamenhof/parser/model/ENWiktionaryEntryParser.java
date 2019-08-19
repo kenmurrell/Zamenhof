@@ -58,7 +58,7 @@ public class ENWiktionaryEntryParser implements IWiktionaryEntryParser{
                                 String targetWord = template.getNumberedParameter(2).map(this::cleanWord).get();
                                 //pages marked as "<word>/translations" are only placeholders for the translations of a main page
                                 String sourceWord = RegExUtils.removeAll(page.getTitle(),TRANSLATION_CATEGORY_PATTERN);
-                                IWordType wordType = Optional.ofNullable(WordType.getByName(currentWordtype)).orElse(WordType.getByName(currentSubheader1));
+                                IWordType wordType = Optional.ofNullable(WordType.getByENName(currentWordtype)).orElse(WordType.getByENName(currentSubheader1));
                                 WiktionaryTranslation translation = WiktionaryTranslation.create(page, currentLanguage, sourceWord, targetLang, targetWord,wordType);
                                 translation.setSense(currentSense);
                                 this.translations.add(translation);

@@ -26,9 +26,11 @@ public class Language implements ILanguage{
 
     public static final ILanguage ENGLISH = get("en");
 
-    public static final ILanguage CZECH = get("cs");
-
     public static final ILanguage FRENCH = get("fr");
+
+    public static final ILanguage PORTUGUESE = get("pt");
+
+    public static final ILanguage CZECH = get("cs");
 
     private static ILanguage get(final String code) {
         initialize();
