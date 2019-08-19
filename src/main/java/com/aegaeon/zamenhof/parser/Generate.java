@@ -26,7 +26,7 @@ public class Generate {
     public static void main(String[] args) {
         String dumpFile = args[0];
         String tempdir = args[1];
-        String tempfile = tempdir+"/test";
+        String tempfile = tempdir+"/dictionary";
 
         PageObjectCollector collector = new PageObjectCollector();
         WiktionaryDumpParser dumpParser = new WiktionaryDumpParser(collector);

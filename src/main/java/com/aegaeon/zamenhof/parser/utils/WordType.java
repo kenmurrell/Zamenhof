@@ -60,7 +60,7 @@ public class WordType implements IWordType
 		allowedIndex = new HashMap<>();
 		frenchIndex = new HashMap<>();
 		try{
-			InputStream enstream = WordType.class.getResourceAsStream("/base_word_types.txt");
+			InputStream enstream = WordType.class.getResourceAsStream("/en_pos_codes.txt");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(enstream, StandardCharsets.UTF_8));
 			String line;
 			while((line = reader.readLine()) !=null)
@@ -69,7 +69,7 @@ public class WordType implements IWordType
 				allowedIndex.put(line,wordtype);
 			}
 
-			InputStream frstream = WordType.class.getResourceAsStream("/fr_word_types.txt");
+			InputStream frstream = WordType.class.getResourceAsStream("/fr_pos_codes.txt");
 			BufferedReader fr_reader = new BufferedReader(new InputStreamReader(frstream, StandardCharsets.UTF_8));
 			while((line = fr_reader.readLine()) !=null)
 			{
