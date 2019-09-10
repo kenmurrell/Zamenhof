@@ -1,0 +1,7 @@
+/scripts/run.sh
+/target
+/out
+*.iml
+/.idea
+/venv
+

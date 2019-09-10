@@ -15,6 +15,13 @@ public class PageObjectCollector implements Consumer<PageObject> {
 
     private static final Logger logger = Logger.getLogger(PageObjectCollector.class.getName());
 
+    private IPageObjectFilter filter;
+
+    public PageObjectCollector(IPageObjectFilter filter)
+    {
+        this.filter = filter;
+    }
+
     @Override
     public void accept(PageObject object) {
         addToCollection(object);
@@ -22,9 +29,14 @@ public class PageObjectCollector implements Consumer<PageObject> {
 
     private void addToCollection(PageObject object)
     {
-        try{
-            collection.add(object);
-        }catch (OutOfMemoryError e)
+        try
+        {
+            if(filter.allow(object))
+            {
+                collection.add(object);
+            }
+        }
+        catch (OutOfMemoryError e)
         {
             logger.log(Level.SEVERE, "Out of Memory: "+e.toString());
             logger.log(Level.SEVERE,"Collection size "+collection.size());

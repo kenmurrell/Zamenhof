@@ -51,6 +51,11 @@ public class WiktionaryTranslation extends PageObject{
     	return targetLanguage;
     }
 
+    public ILanguage getSourceLanguage()
+    {
+        return sourceLanguage;
+    }
+
     public void setSense(String sense)
     {
         this.sense = sense;
