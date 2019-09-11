@@ -11,7 +11,7 @@ public class WordTypeTest
 	{
 		IWordType type = WordType.getByENName("noun".toUpperCase());
 		assertNotNull(type);
-		assertEquals("NOUN",type.getName());
+		assertEquals("NOUN", type.getName());
 	}
 
 	@Test
@@ -26,7 +26,7 @@ public class WordTypeTest
 	{
 		IWordType type = WordType.UNKNOWN;
 		assertNotNull(type);
-		assertEquals("UNKNOWN",type.getName());
+		assertEquals("UNKNOWN", type.getName());
 	}
 
 	@Test
@@ -34,6 +34,6 @@ public class WordTypeTest
 	{
 		IWordType type = WordType.getByFRName("verbe".toUpperCase());
 		assertNotNull(type);
-		assertEquals("VERB",type.getName());
+		assertEquals("VERB", type.getName());
 	}
 }

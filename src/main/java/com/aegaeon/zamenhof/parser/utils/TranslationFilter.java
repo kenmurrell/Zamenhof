@@ -21,14 +21,12 @@ public class TranslationFilter implements IPageObjectFilter
 	@Override
 	public boolean allow(PageObject o)
 	{
-		if(Objects.isNull(tgtLanguage)|| Objects.isNull(srcLanguage))
-		{
+		if (Objects.isNull(tgtLanguage) || Objects.isNull(srcLanguage)) {
 			return false;
 		}
-		if(!(o instanceof WiktionaryTranslation))
-		{
+		if (!(o instanceof WiktionaryTranslation)) {
 			return false;
 		}
-		return ((WiktionaryTranslation) o).getTargetLanguage()==tgtLanguage && ((WiktionaryTranslation) o).getSourceLanguage()==srcLanguage;
+		return ((WiktionaryTranslation) o).getTargetLanguage() == tgtLanguage && ((WiktionaryTranslation) o).getSourceLanguage() == srcLanguage;
 	}
 }

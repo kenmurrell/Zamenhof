@@ -14,6 +14,11 @@ Download the Wiktionary dumps and run the parser:
 ```bash
 python3 scripts/run.py --sourcelanguage LANG1 --targetlanguage LANG2 --dir DIRECTORY --targetdir BUILD_DIRECTORY
 ```
+Alternatively, not specifying a target language will generate a dictionary of all available translations from the source language:
+```bash
+python3 scripts/run.py --sourcelanguage LANG1 --dir DIRECTORY --targetdir BUILD_DIRECTORY
+```
+
 Supported Source Languages: English (en), French (fr), Portuguese (pt)
 
 

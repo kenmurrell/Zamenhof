@@ -5,55 +5,59 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class WiktionaryPage {
+public class WiktionaryPage
+{
 
-    private static final DateTimeFormatter informat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CANADA);
-    private static final DateTimeFormatter outformat = DateTimeFormatter.ofPattern("'D'yyyy-MM-dd'T'HH:mm");
-    private String title;
-    private int id;
-    private int revision;
-    private LocalDateTime timestamp;
+	private static final DateTimeFormatter informat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CANADA);
+	private static final DateTimeFormatter outformat = DateTimeFormatter.ofPattern("'D'yyyy-MM-dd'T'HH:mm");
+	private String title;
+	private int id;
+	private int revision;
+	private LocalDateTime timestamp;
 
-    protected void setTitle(String title)
-    {
-        this.title = title;
-    }
+	public String getTitle()
+	{
+		return this.title;
+	}
 
-    public String getTitle()
-    {
-        return this.title;
-    }
+	protected void setTitle(String title)
+	{
+		this.title = title;
+	}
 
-    public void setTimestamp(String timestamp) {
+	public LocalDateTime getTimestamp()
+	{
+		return this.timestamp;
+	}
 
-        this.timestamp = LocalDateTime.parse(timestamp, informat);
-    }
+	public void setTimestamp(String timestamp)
+	{
 
-    public void setId(String id) {
-        this.id = Integer.parseInt(id);
-    }
+		this.timestamp = LocalDateTime.parse(timestamp, informat);
+	}
 
-    public void setRevision(String revision) {
-        this.revision = Integer.parseInt(revision);
-    }
+	public String getStringTimestamp()
+	{
+		return this.timestamp.format(outformat);
+	}
 
-    public LocalDateTime getTimestamp()
-    {
-        return this.timestamp;
-    }
+	public int getRevision()
+	{
+		return this.revision;
+	}
 
-    public String getStringTimestamp()
-    {
-        return this.timestamp.format(outformat);
-    }
+	public void setRevision(String revision)
+	{
+		this.revision = Integer.parseInt(revision);
+	}
 
-    public int getRevision()
-    {
-        return this.revision;
-    }
+	public int getId()
+	{
+		return this.id;
+	}
 
-    public int getId()
-    {
-        return this.id;
-    }
+	public void setId(String id)
+	{
+		this.id = Integer.parseInt(id);
+	}
 }

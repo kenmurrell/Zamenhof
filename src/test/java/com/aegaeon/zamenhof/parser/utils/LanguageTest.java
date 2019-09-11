@@ -12,7 +12,7 @@ public class LanguageTest
 	{
 		ILanguage lang = Language.getByCode("fr");
 		assertNotNull(lang);
-		assertEquals("French",lang.getName());
+		assertEquals("French", lang.getName());
 	}
 
 	@Test
@@ -20,8 +20,8 @@ public class LanguageTest
 	{
 		ILanguage lang = Language.getByCode("lb");
 		assertNotNull(lang);
-		assertEquals("lb",lang.getCode());
-		assertEquals("Luxembourgish",lang.getName());
+		assertEquals("lb", lang.getCode());
+		assertEquals("Luxembourgish", lang.getName());
 	}
 
 	@Test
@@ -29,8 +29,8 @@ public class LanguageTest
 	{
 		ILanguage lang = Language.getByName("Arabic".toUpperCase());
 		assertNotNull(lang);
-		assertEquals("ar",lang.getCode());
-		assertEquals("Arabic",lang.getName());
+		assertEquals("ar", lang.getCode());
+		assertEquals("Arabic", lang.getName());
 	}
 
 }
