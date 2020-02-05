@@ -41,7 +41,7 @@ def main():
     target = divider.join([os.path.join(args.targetdir, j) for j in os.listdir(args.targetdir) if re.match(r".+\.jar", j)])
     #run java
     env = dict(os.environ)
-    java_arguments = ['java', '-Xmx1g','-cp', target, 'com.aegaeon.zamenhof.parser.Generate', "-p", args.dir, "-w",xml_file]
+    java_arguments = ['java', '-Xmx1g','-cp', target, 'com.github.kenmurrell.zamenhof.Generate', "-p", args.dir, "-w",xml_file]
     if args.targetlanguage:
         java_arguments.extend(["-l",args.sourcelanguage+"-"+args.targetlanguage])
     logger.info("--> Starting JVM...")
